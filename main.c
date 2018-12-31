@@ -288,7 +288,7 @@ int main(int argc, char* argv[]){
   sfText_setFont(textc,font);
   sfText_setCharacterSize(textc,16);
   sfText_setPosition(textc,make_vec2(0,620));
-  sfText_setString(textc,"(C)Simon Lixenfeld 2018");
+  sfText_setString(textc,"(c) slxfld");
   
   
   sfVideoMode mode = {640, 640, 32};
@@ -325,7 +325,7 @@ int main(int argc, char* argv[]){
 				KEY_LEFT = true;
 				if(!L_KEY_LEFT&&!game_start){
 					L_KEY_LEFT=true;
-					b_speed-=0.5;
+					if(b_speed>0){b_speed-=0.5;}
 					x_speed=b_speed;
 					y_speed=b_speed;
 				}
@@ -341,7 +341,7 @@ int main(int argc, char* argv[]){
 				KEY_RIGHT = true;
 				if(!L_KEY_RIGHT&&!game_start){
 					L_KEY_RIGHT=true;
-					b_speed+=0.5;
+					if(b_speed<10){ b_speed+=0.5;}
 					x_speed=b_speed;
 					y_speed=b_speed;
 					
@@ -353,7 +353,7 @@ int main(int argc, char* argv[]){
 				L_KEY_RIGHT=false;
 			}
 			
-			if(sfKeyboard_isKeyPressed(sfKeySpace)&&!game_end){
+			if(sfKeyboard_isKeyPressed(sfKeyReturn)&&!game_end){
 				ready = true;
 				if(!game_start){
 					game_start=true;
@@ -559,7 +559,7 @@ int main(int argc, char* argv[]){
 		sfFloatRect pad_rect = sfSprite_getGlobalBounds(pad);
 		sfFloatRect* pa_rect = &pad_rect;
 		if(sfFloatRect_intersects(p_ball,pa_rect,NULL)&&
-		   sfSprite_getPosition(ball).y+16<sfSprite_getPosition(pad).y+6) { 
+		   sfSprite_getPosition(ball).y+16<sfSprite_getPosition(pad).y+10) { 
 			if(y_speed>0){y_speed=-y_speed;}
 			/* calc new x-speed */
 			// length of pad = 96
@@ -620,7 +620,7 @@ if(!game_end){
 		  }
 		  
 		  char xbspeed[12] = {0};
-		  sprintf(xbspeed,"Speed:<- %.2f ->",b_speed);
+		  sprintf(xbspeed,"Enter to Start\nSpeed:<- %.2f ->",b_speed);
 		  sfText_setString(text_bspeed,xbspeed);
 		  if(!game_start){
 			sfRenderWindow_drawText(window,text_bspeed,NULL);
