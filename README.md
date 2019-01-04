@@ -1,4 +1,4 @@
-# b70
+# Breakout70
 block-breaking game in C using CSFML
 # Releases
 https://github.com/slxfld/brickbreak/releases
