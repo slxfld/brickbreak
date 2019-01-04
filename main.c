@@ -822,7 +822,7 @@ if(!game_end){
 			sfRenderWindow_drawText(window,text_start,NULL);
 		  }
 		  
-		  if(game_start){
+		  if(start_count==0){
 			/* draw explode effect */
 			sfRenderWindow_drawRectangleShape(window,xlvlbox,NULL);
 			sfRenderWindow_drawRectangleShape(window,ylvlbox,NULL);
