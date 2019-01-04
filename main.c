@@ -333,7 +333,7 @@ int main(int argc, char* argv[]){
   sfVideoMode mode = {640, 640, 32};
   sfRenderWindow* window;    
   sfEvent event;
-  window = sfRenderWindow_create(mode, "Brick70", sfResize | sfClose, NULL);
+  window = sfRenderWindow_create(mode, "Breakout70", sfResize | sfClose, NULL);
 	
     if (!window)
 	{
@@ -345,7 +345,9 @@ int main(int argc, char* argv[]){
 	
   typedef enum {
     MENU,
-    GAME
+    GAME,
+	OPTIONS,
+	HIGHSCORES
   } STATES;
 	STATES state = MENU;
 
@@ -436,9 +438,20 @@ int main(int argc, char* argv[]){
 					L_KEY_ENTER=true;
 					switch(state){
 						case MENU: 
-							state = GAME;
-							if(!game_start){
-								level_load = true;
+							switch(menu_selected)
+							{
+							case 1:
+								state = GAME;
+								if(!game_start){
+									level_load = true;
+								}
+							break;
+							case 2:
+								
+							break;
+							case 3:
+								state = OPTIONS;
+							break;
 							}
 						break;
 						case GAME: 
@@ -463,6 +476,18 @@ int main(int argc, char* argv[]){
 		
 	switch(state)
 {
+	case OPTIONS:
+		/* Clear */
+		sfRenderWindow_clear(window,sfBlack);
+		/* Background */ 
+		sfRenderWindow_drawSprite(window,bg,NULL);
+		sfRenderWindow_drawSprite(window,mainmenu,NULL);
+		
+		
+		/* Display */
+		sfRenderWindow_display(window);
+	break;
+
 	case MENU:
 		/* Clear */
 		sfRenderWindow_clear(window,sfBlack);
