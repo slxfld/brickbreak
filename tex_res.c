@@ -1,11 +1,6 @@
 //Texture Resources
 //
 
-sfVector2f make_vector2(int x,int y)
-{
-  sfVector2f vec2 = {x,y};
-  return vec2;
-}
 typedef struct brick{
 	sfSprite* sprite;
 	int worth;
@@ -22,8 +17,10 @@ typedef struct textures{
   sfTexture* BRICK_1_V1_tex ;
   sfTexture* BRICK_1_Y1_tex ;
   sfTexture* BACKGROUND;
+  sfTexture* MAIN_M;
   sfTexture* BALL ;
   sfTexture* PAD ;
+  
   
 } textures;
 
