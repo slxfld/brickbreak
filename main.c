@@ -327,13 +327,13 @@ int main(int argc, char* argv[]){
   sfText_setFont(textc,font);
   sfText_setCharacterSize(textc,16);
   sfText_setPosition(textc,make_vec2(0,620));
-  sfText_setString(textc,"(c) slxfld");
+  sfText_setString(textc,"(C) 2018-2019 slxfld");
   
   
   sfVideoMode mode = {640, 640, 32};
   sfRenderWindow* window;    
   sfEvent event;
-  window = sfRenderWindow_create(mode, "BrickBreak", sfResize | sfClose, NULL);
+  window = sfRenderWindow_create(mode, "Brick70", sfResize | sfClose, NULL);
 	
     if (!window)
 	{
@@ -364,7 +364,7 @@ int main(int argc, char* argv[]){
 				KEY_UP = true;
 				if(!L_KEY_UP&&!game_start){
 					L_KEY_UP=true;
-					if(menu_selected>0){
+					if(menu_selected>1){
 					  menu_selected--;
 					}
 				}
@@ -628,11 +628,6 @@ int main(int argc, char* argv[]){
 					combo_ctr=120*2;
 					points+=(bricks[i][j]->worth*combo);
 					bricks[i][j]->hit = true;
-			/* xyeffect -> brick*/
-			sfVector2f vec2x = {103 +(j*82) - (200/1.5),17+(i*30)};
-			sfVector2f vec2y = {22+ 30+(j*82),41 +(30+i*30) - (200/1.5)};
-			sfRectangleShape_setPosition(xlvlbox,vec2x);
-			sfRectangleShape_setPosition(ylvlbox,vec2y);
 					/* Check Level Complete */
 					bool levelcom = true;
 					for(int i = 0; i < 10;i++){
@@ -683,11 +678,6 @@ int main(int argc, char* argv[]){
 					combo_ctr=120*2;
 					points+=(bricks[i][j]->worth*combo);
 					bricks[i][j]->hit = true;
-			/* xyeffect -> brick*/
-			sfVector2f vec2x = {103 +(j*82) - (200/1.5),17+(i*30)};
-			sfVector2f vec2y = {22+ 30+(j*82),41 +(30+i*30) - (200/1.5)};
-			sfRectangleShape_setPosition(xlvlbox,vec2x);
-			sfRectangleShape_setPosition(ylvlbox,vec2y);
 					/* Check Level Complete */
 					bool levelcom = true;
 					for(int i = 0; i < 10;i++){
@@ -795,7 +785,7 @@ int main(int argc, char* argv[]){
 
 		  sfRenderWindow_drawSprite(window,ball,NULL);
 		  sfRenderWindow_drawSprite(window,pad,NULL);
-if(!game_end){
+	if(!game_end){
 		  frame++;
 		  char frames[12] = {0};
 		  sprintf(frames,"Points: %d",points);
@@ -834,7 +824,7 @@ if(!game_end){
 		  if(!speed_set){
 			sfRenderWindow_drawText(window,text_bspeed,NULL);
 		  }
-}			
+	}			
 
 			
 		  if(game_end){
