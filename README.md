@@ -1,5 +1,7 @@
 # Brick70
 block-breaking game in C using CSFML
+# Releases
+https://github.com/slxfld/brickbreak/releases
 # Build 
 gcc main.c -Ipath\to\CSFML\include -Lpath\to\CSFML\lib\gcc  -lcsfml-graphics -lcsfml-system -lcsfml-window -lcsfml-audio -o game -std=c99
 </br>
