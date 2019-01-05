@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include <SFML/Graphics.h>
 #include "tex_res.c"
-
+#include "math.h"
 /**
  *
  *  Copyright 2019 by Simon Lixenfeld
@@ -222,7 +222,7 @@ int main(int argc, char* argv[]){
 			
   int points = 0;
   double combo_ctr= 0;
-  double combo= 0;
+  double combo=1;
   double combo_time = 2.5;
   
   int lives = 3;
@@ -672,8 +672,13 @@ int main(int argc, char* argv[]){
 				x_speed = -x_speed;
 			    if(bricks[i][j]->worth>0){
 				sfSprite_setPosition(bricks[i][j]->sprite,make_vec2(0,-200));
-					combo++;
-					combo_ctr=framerate*combo_time;
+				
+					combo_ctr=combo_ctr+(framerate*(bricks[i][j]->worth/100));
+					if(combo_ctr>(framerate*1)){
+					  combo++;
+					  combo_ctr=combo_ctr-framerate*1;
+					}
+					
 					points+=(bricks[i][j]->worth*combo);
 					bricks[i][j]->hit = true;
 					/* Check Level Complete */
@@ -723,8 +728,13 @@ int main(int argc, char* argv[]){
 				y_speed = -y_speed;
 			    if(bricks[i][j]->worth>0){
 				sfSprite_setPosition(bricks[i][j]->sprite,make_vec2(0,-200));
-					combo++;
-					combo_ctr=framerate*combo_time;
+				
+					combo_ctr=combo_ctr+(framerate*(bricks[i][j]->worth/100));
+					if(combo_ctr>(framerate*1)){
+					  combo++;
+					  combo_ctr=combo_ctr-framerate*1;
+					}
+					
 					points+=(bricks[i][j]->worth*combo);
 					bricks[i][j]->hit = true;
 					/* Check Level Complete */
@@ -757,13 +767,14 @@ int main(int argc, char* argv[]){
 		}
 		/* End Ball->Bricks Collision Check */
 		/* combo count */
-		
-		if(combo>0){
-			combo_ctr--;
-			if(combo_ctr<=0){combo=0;}
-		}
-		
 
+		if(combo_ctr>0){
+			combo_ctr-=(0.02*(combo));
+			if(combo_ctr<=0&&combo!=1){combo--; combo_ctr=framerate*1;}
+		}
+		if(combo_ctr>framerate*1){
+			combo_ctr=framerate*1;
+		}
 		
 		/* Ball Border Check */
 		if(sfSprite_getPosition(ball).x+16>640){
@@ -847,7 +858,7 @@ int main(int argc, char* argv[]){
 		  sfText_setString(text_combo,xcombo);
 		  sfRenderWindow_drawText(window,text_combo,NULL);
 		  
-		  sfRectangleShape_setSize(combo_rect,make_vec2((((combo_ctr/framerate)*60)*60)/60,10));
+		  sfRectangleShape_setSize(combo_rect,make_vec2((((combo_ctr/framerate)*120)*120)/120,10));
 		  sfRenderWindow_drawRectangleShape(window,combo_rect,NULL);
 		  
 		  char xlives[12] = {0};
