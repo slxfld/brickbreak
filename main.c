@@ -111,7 +111,7 @@ int main(int argc, char* argv[]){
 			{0,0,0,0,0,0,0}
 		},
 		{//1
-			{1,1,1,1,1,1,1},
+			{0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0},
 			{0,2,2,2,2,2,0},
 			{0,1,1,1,1,1,0},
@@ -221,7 +221,7 @@ int main(int argc, char* argv[]){
   bool cl_first = false;
 			
   int points = 0;
-  int combo_ctr= 0;
+  double combo_ctr= 0;
   int combo= 0;
   int combo_time = 3;
   
@@ -241,6 +241,8 @@ int main(int argc, char* argv[]){
   bool game_start = false;
   bool game_end = false;
   bool level_loaded = false;
+  
+  double alive_bricks = 70;
   
   bool level_load = false;
   int  ll_ctr_x = 0;
@@ -676,9 +678,10 @@ int main(int argc, char* argv[]){
 					bricks[i][j]->hit = true;
 					/* Check Level Complete */
 					bool levelcom = true;
+					alive_bricks=0;
 					for(int i = 0; i < 10;i++){
 						for(int j = 0; j < 7; j++){
-						if(!bricks[i][j]->hit){levelcom=false;}
+						if(!bricks[i][j]->hit){levelcom=false; alive_bricks++;}
 						}
 					}
 					if(levelcom){
@@ -726,9 +729,10 @@ int main(int argc, char* argv[]){
 					bricks[i][j]->hit = true;
 					/* Check Level Complete */
 					bool levelcom = true;
+					alive_bricks=0;
 					for(int i = 0; i < 10;i++){
 						for(int j = 0; j < 7; j++){
-						if(!bricks[i][j]->hit){levelcom=false;}
+						if(!bricks[i][j]->hit){levelcom=false; alive_bricks++;}
 						}
 					}
 					if(levelcom){
@@ -752,11 +756,14 @@ int main(int argc, char* argv[]){
 		  }
 		}
 		/* End Ball->Bricks Collision Check */
-
 		/* combo count */
 		if(combo>0){
-		  combo_ctr--;
-		  if(!combo_ctr){combo=0;}
+		  if(alive_bricks<10){
+			combo_ctr-=( 0.4 + (alive_bricks/70));
+			if(combo_ctr<=0){combo=0;}
+		  }else{
+			combo_ctr--;
+		  }
 		}
 		
 
