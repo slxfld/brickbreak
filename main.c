@@ -99,7 +99,7 @@ int main(int argc, char* argv[]){
   int levels[10][10][7] =
 	{
 		{//0
-			{1,1,1,1,1,1,1},
+			{0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0},
@@ -215,7 +215,7 @@ int main(int argc, char* argv[]){
 		}
 	};
   
-  int framerate = 60;
+  int framerate = 70;
   
   int c_level[10][7];
   bool cl_first = false;
