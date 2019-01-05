@@ -215,15 +215,15 @@ int main(int argc, char* argv[]){
 		}
 	};
   
-  int framerate = 70;
+  int framerate = 60;
   
   int c_level[10][7];
   bool cl_first = false;
 			
   int points = 0;
   double combo_ctr= 0;
-  int combo= 0;
-  int combo_time = 3;
+  double combo= 0;
+  double combo_time = 2;
   
   int lives = 3;
   int frame = 0;
@@ -757,14 +757,10 @@ int main(int argc, char* argv[]){
 		}
 		/* End Ball->Bricks Collision Check */
 		/* combo count */
+		
 		if(combo>0){
-		  if(alive_bricks<10){
-			combo_ctr-=( 0.5 + (alive_bricks/70));
-			if(combo_ctr<=0){combo=0;}
-		  }else{
 			combo_ctr--;
 			if(combo_ctr<=0){combo=0;}
-		  }
 		}
 		
 
@@ -847,11 +843,11 @@ int main(int argc, char* argv[]){
 		  sfRenderWindow_drawText(window,text_points,NULL);
 		  
 		  char xcombo[12] = {0};
-		  sprintf(xcombo,"Combo: x%d",combo);
+		  sprintf(xcombo,"Combo: x%.2f",combo);
 		  sfText_setString(text_combo,xcombo);
 		  sfRenderWindow_drawText(window,text_combo,NULL);
 		  
-		  sfRectangleShape_setSize(combo_rect,make_vec2((combo_ctr*64/framerate),10));
+		  sfRectangleShape_setSize(combo_rect,make_vec2((((combo_ctr/framerate)*60)*60)/60,10));
 		  sfRenderWindow_drawRectangleShape(window,combo_rect,NULL);
 		  
 		  char xlives[12] = {0};
