@@ -18,6 +18,8 @@ typedef struct textures{
   sfTexture* BRICK_1_Y1_tex ;
   sfTexture* BACKGROUND;
   sfTexture* MAIN_M;
+  sfTexture* BLANK_M;
+  
   sfTexture* BALL ;
   sfTexture* PAD ;
   

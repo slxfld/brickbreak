@@ -38,98 +38,91 @@ sfVector2f make_Dvec2(double _x,double _y){
 
 
 void load_level(int jb,int ib,int num[10][7],textures* texres,brick* bricks[12][12]){
-
-			printf("0 malloc: %d:%d= 0x%x\n",ib,jb,bricks[ib][jb]);
-			  bricks[ib][jb]=malloc(sizeof(brick));
-			printf("1 malloc: %d:%d= 0x%x\n",ib,jb,bricks[ib][jb]);
-				
-			  bricks[ib][jb]->sprite = sfSprite_create();
-			
-			switch(num[ib][jb])
-			{
-				case 0:
-				  bricks[ib][jb]->worth = 0; 
-				  sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_GR1_tex,sfTrue);
-				  bricks[ib][jb]->hit = true;
-				break;
-				case 1: 
-				  bricks[ib][jb]->worth = 100; 
-				  sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_G1_tex,sfTrue);
-				break;
-				case 2:  
-				  bricks[ib][jb]->worth = 200; 
-				  sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_B1_tex,sfTrue);
-				break;
-				case 3:  
-				  bricks[ib][jb]->worth = 300; 
-				  sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_O1_tex,sfTrue);
-				break;
-				case 4:  
-				  bricks[ib][jb]->worth = 400; 
-				  sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_R1_tex,sfTrue);
-				break;
-				case 5:  
-				  bricks[ib][jb]->worth = 500; 
-				  sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_V1_tex,sfTrue);
-				break;
-				case 6:  
-				  bricks[ib][jb]->worth = 600; 
-				  sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_Y1_tex,sfTrue);
-				break;
-				case 7:  
-				bricks[ib][jb]->worth = 0; 
-				sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_GR1_tex,sfTrue);
-				bricks[ib][jb]->hit = true;				
-				break;
-				
-			}
-				sfSprite_setScale(bricks[ib][jb]->sprite,make_Dvec2(1,1.17));
-				if(!num[ib][jb]){
-				sfSprite_setPosition(bricks[ib][jb]->sprite,make_vec2(-500,0));
-				}else{
-				sfVector2f vec2 = {30+jb*82,20+ib*30};
-				sfSprite_setPosition(bricks[ib][jb]->sprite,vec2);
-				}
-		
-	
+	printf("0 malloc: %d:%d= 0x%x\n",ib,jb,bricks[ib][jb]);
+	bricks[ib][jb]=malloc(sizeof(brick));
+	printf("1 malloc: %d:%d= 0x%x\n",ib,jb,bricks[ib][jb]);
+	bricks[ib][jb]->sprite = sfSprite_create();
+		switch(num[ib][jb]){
+			case 0:
+			  bricks[ib][jb]->worth = 0; 
+			  sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_GR1_tex,sfTrue);
+			  bricks[ib][jb]->hit = true;
+			break;
+			case 1: 
+			  bricks[ib][jb]->worth = 100; 
+			  sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_G1_tex,sfTrue);
+			break;
+			case 2:  
+			  bricks[ib][jb]->worth = 200; 
+			  sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_B1_tex,sfTrue);
+			break;
+			case 3:  
+			  bricks[ib][jb]->worth = 300; 
+			  sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_O1_tex,sfTrue);
+			break;
+			case 4:  
+			  bricks[ib][jb]->worth = 400; 
+			  sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_R1_tex,sfTrue);
+			break;
+			case 5:  
+			  bricks[ib][jb]->worth = 500; 
+			  sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_V1_tex,sfTrue);
+			break;
+			case 6:  
+			  bricks[ib][jb]->worth = 600; 
+			  sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_Y1_tex,sfTrue);
+			break;
+			case 7:  
+			bricks[ib][jb]->worth = 0; 
+			sfSprite_setTexture(bricks[ib][jb]->sprite,texres->BRICK_1_GR1_tex,sfTrue);
+			bricks[ib][jb]->hit = true;				
+			break;
+		}
+	sfSprite_setScale(bricks[ib][jb]->sprite,make_Dvec2(1.1,1.17));
+	if(!num[ib][jb]){
+		sfSprite_setPosition(bricks[ib][jb]->sprite,make_vec2(-500,0));
+	}else{
+		sfVector2f vec2 = {6+jb*90,20+ib*30};
+		sfSprite_setPosition(bricks[ib][jb]->sprite,vec2);
+	}
 }
 
 int main(int argc, char* argv[]){
-	  
-	  
-	int level_0[10][7] = 
-		  {
-			{0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0}
-		
-		  };
-		  
-	int level_1[10][7] = 
-		  {
-			{0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0},
-			{0,2,2,2,2,2,0},
-			{0,1,1,1,1,1,0},
-			{0,0,0,0,0,0,0},
-			{0,1,1,1,1,1,0},
-			{0,2,2,2,2,2,0},
-			{0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0}
-		
-		  };
 
-		  
-	int level_2[10][7] = 
-		  {
+ typedef enum {
+    MENU,
+    GAME,
+	OPTIONS,
+	HIGHSCORES
+  } STATES;
+  
+  int levels[10][10][7] =
+	{
+		{//0
+			{1,1,1,1,1,1,1},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0}
+		},
+		{//1
+			{1,1,1,1,1,1,1},
+			{0,0,0,0,0,0,0},
+			{0,2,2,2,2,2,0},
+			{0,1,1,1,1,1,0},
+			{0,0,0,0,0,0,0},
+			{0,1,1,1,1,1,0},
+			{0,2,2,2,2,2,0},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0}
+		},
+		{//2
 			{1,1,4,1,4,1,1},
 			{1,4,1,4,1,4,1},
 			{0,0,0,0,0,0,0},
@@ -141,9 +134,8 @@ int main(int argc, char* argv[]){
 			{1,1,1,1,1,1,1},
 			{1,1,1,1,1,1,1}
 		
-		  };
-	int level_3[10][7] = 
-		  {
+		},
+		{//3
 			{1,1,1,1,1,1,1},
 			{1,1,5,0,5,1,1},
 			{1,5,0,0,0,5,1},
@@ -155,23 +147,21 @@ int main(int argc, char* argv[]){
 			{0,2,0,1,0,2,0},
 			{0,3,0,1,0,3,0}
 
-		  };	  
-	int level_4[10][7] = 
-		  {
-			{0,0,0,0,0,0,0},
-			{3,4,3,4,3,4,3},
-			{0,2,2,0,2,2,0},
-			{0,0,0,0,0,0,0},
-			{0,1,1,5,1,1,0},
-			{0,1,1,1,1,1,0},
-			{0,1,1,2,0,0,0},
-			{0,1,1,2,2,2,0},
-			{0,0,0,1,1,1,0},
-			{0,0,0,1,1,1,0}
+		},
+		{//4
+			{4,0,2,0,4,0,2},
+			{0,2,0,4,0,2,0},
+			{2,0,4,0,2,0,4},
+			{0,4,0,2,0,4,0},
+			{4,0,2,0,4,0,2},
+			{0,2,0,4,0,2,0},
+			{2,0,4,0,2,0,4},
+			{0,4,0,2,0,4,0},
+			{4,0,2,0,4,0,2},
+			{0,2,0,4,0,2,0}
 
-		  };
-	int level_5[10][7] = 
-		  {
+		},
+		{//5
 			{0,0,0,0,0,0,0},
 			{0,1,1,1,1,1,0},
 			{0,1,2,2,2,1,0},
@@ -181,16 +171,59 @@ int main(int argc, char* argv[]){
 			{0,1,3,6,3,1,0},
 			{0,1,2,2,2,1,0},
 			{0,1,1,1,1,1,0},
-			{0,7,0,7,0,7,0}
+			{0,7,0,0,0,7,0}
 
-		  };
-	  
-	int c_level[10][7];
-	bool cl_first = false;
+		},
+		{//6
+			{6,6,6,7,6,6,6},
+			{0,0,0,7,0,0,0},
+			{4,4,4,4,4,4,4},
+			{4,4,4,4,4,4,4},
+			{7,3,3,3,3,3,7},
+			{7,3,3,3,3,3,7},
+			{2,2,2,2,2,2,2},
+			{2,2,2,2,2,2,2},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0}
+		
+		},
+		{//7
+			{6,0,2,0,6,0,2},
+			{0,2,0,4,0,2,0},
+			{2,0,6,0,2,0,6},
+			{0,4,0,2,0,4,0},
+			{6,0,2,0,6,0,2},
+			{0,2,0,4,0,2,0},
+			{2,0,6,0,2,0,6},
+			{0,4,0,2,0,4,0},
+			{6,0,2,0,6,0,2},
+			{0,2,0,4,0,2,0}
+		
+		},
+		{//8
+			{1,2,3,4,3,2,1},
+			{2,0,2,5,2,0,2},
+			{3,0,0,3,0,0,3},
+			{4,0,4,0,4,0,4},
+			{5,5,0,0,0,5,5},
+			{6,0,0,0,0,0,6},
+			{1,0,0,0,0,0,1},
+			{2,0,7,0,7,0,2},
+			{3,7,0,0,0,7,3},
+			{7,0,0,0,0,0,7}
+		
+		}
+	};
+  
+  int framerate = 60;
+  
+  int c_level[10][7];
+  bool cl_first = false;
 			
   int points = 0;
   int combo_ctr= 0;
   int combo= 0;
+  int combo_time = 3;
   
   int lives = 3;
   int frame = 0;
@@ -223,21 +256,23 @@ int main(int argc, char* argv[]){
   //Resources
   textures* texres = malloc(sizeof(*texres));
 
-  texres->BRICK_1_G1_tex =  sfTexture_createFromFile("./png/brick01g1.png", NULL);
-  texres->BRICK_1_B1_tex =  sfTexture_createFromFile("./png/brick01b1.png", NULL);
-  texres->BRICK_1_GR1_tex = sfTexture_createFromFile("./png/brick01gr1.png", NULL);
-  texres->BRICK_1_O1_tex =  sfTexture_createFromFile("./png/brick01o1.png", NULL);
-  texres->BRICK_1_R1_tex =  sfTexture_createFromFile("./png/brick01r1.png", NULL);
-  texres->BRICK_1_V1_tex =  sfTexture_createFromFile("./png/brick01v1.png", NULL);
-  texres->BRICK_1_Y1_tex =  sfTexture_createFromFile("./png/brick01y1.png", NULL);
-  texres->MAIN_M =  sfTexture_createFromFile("./png/main_m.png", NULL);
-  texres->BACKGROUND =  sfTexture_createFromFile("./png/bg.png", NULL);
-  texres->BALL =  sfTexture_createFromFile("./png/ball.png", NULL);
-  texres->PAD =  sfTexture_createFromFile("./png/pad.png", NULL);
+  texres->BRICK_1_G1_tex	=	sfTexture_createFromFile("./png/brick01g1.png", NULL);
+  texres->BRICK_1_B1_tex	=	sfTexture_createFromFile("./png/brick01b1.png", NULL);
+  texres->BRICK_1_GR1_tex	=	sfTexture_createFromFile("./png/brick01gr1.png", NULL);
+  texres->BRICK_1_O1_tex	=	sfTexture_createFromFile("./png/brick01o1.png", NULL);
+  texres->BRICK_1_R1_tex	=	sfTexture_createFromFile("./png/brick01r1.png", NULL);
+  texres->BRICK_1_V1_tex	=	sfTexture_createFromFile("./png/brick01v1.png", NULL);
+  texres->BRICK_1_Y1_tex	=	sfTexture_createFromFile("./png/brick01y1.png", NULL);
+  texres->MAIN_M			=	sfTexture_createFromFile("./png/main_m.png", NULL);
+  texres->BLANK_M			=  	sfTexture_createFromFile("./png/blank_m.png", NULL);  
+  texres->BACKGROUND 		=  	sfTexture_createFromFile("./png/bg.png", NULL);
+  texres->BALL				=  	sfTexture_createFromFile("./png/ball.png", NULL);
+  texres->PAD				=  	sfTexture_createFromFile("./png/pad2.png", NULL);
   
   sfSprite* pad = sfSprite_create();
   sfSprite_setTexture(pad,texres->PAD,sfTrue);
   sfSprite_setPosition(pad,make_vec2(-40+640/2,640-50));
+  sfSprite_setScale(pad,make_Dvec2(1,1.14));
  
   sfRectangleShape* menu_box = sfRectangleShape_create();
   sfRectangleShape_setSize(menu_box,make_vec2(191,38));
@@ -327,13 +362,13 @@ int main(int argc, char* argv[]){
   sfText_setFont(textc,font);
   sfText_setCharacterSize(textc,16);
   sfText_setPosition(textc,make_vec2(0,620));
-  sfText_setString(textc,"(C) 2018-2019 slxfld");
+  sfText_setString(textc,"(C) 2019 slxfld");
   
   
   sfVideoMode mode = {640, 640, 32};
   sfRenderWindow* window;    
   sfEvent event;
-  window = sfRenderWindow_create(mode, "Breakout70", sfResize | sfClose, NULL);
+  window = sfRenderWindow_create(mode, "Breakout70", sfNone | sfClose, NULL);
 	
     if (!window)
 	{
@@ -341,14 +376,10 @@ int main(int argc, char* argv[]){
         return 1;
     }
 
-	sfRenderWindow_setFramerateLimit(window,60);
+	sfRenderWindow_setFramerateLimit(window,framerate);
 	sfRenderWindow_setMouseCursorVisible(window,sfFalse);
-  typedef enum {
-    MENU,
-    GAME,
-	OPTIONS,
-	HIGHSCORES
-  } STATES;
+ 
+
 	STATES state = MENU;
 
     while (sfRenderWindow_isOpen(window))
@@ -363,7 +394,7 @@ int main(int argc, char* argv[]){
 
             if (event.type == sfEvtClosed){
                 sfRenderWindow_close(window);
-				return 0;
+				break;
 			}
 
 			if(sfKeyboard_isKeyPressed(sfKeyW))
@@ -503,13 +534,12 @@ int main(int argc, char* argv[]){
 			
 		switch(menu_selected)
 		{
-		case 1: sfRectangleShape_setPosition(menu_box,make_vec2(225,224));
-		break;
-		case 2: sfRectangleShape_setPosition(menu_box,make_vec2(225,224+(39*2)));
-		break;
-		case 3: sfRectangleShape_setPosition(menu_box,make_vec2(225,224+(39*4)));
-		break;
-			
+			case 1: sfRectangleShape_setPosition(menu_box,make_vec2(225,224));
+			break;
+			case 2: sfRectangleShape_setPosition(menu_box,make_vec2(225,224+(39*2)));
+			break;
+			case 3: sfRectangleShape_setPosition(menu_box,make_vec2(225,224+(39*4)));
+			break;	
 		}
 		
 		sfRenderWindow_drawRectangleShape(window,menu_box,NULL);
@@ -520,7 +550,8 @@ int main(int argc, char* argv[]){
 	
 	case GAME:
 			
-		if(speed_set){
+		if(speed_set)
+		{
 			if(KEY_LEFT)
 			{
 				if(sfSprite_getPosition(pad).x>0)
@@ -542,12 +573,16 @@ int main(int argc, char* argv[]){
 		
 		/* load */
 		if(level_load){
+		
 			/* Clear */
 			sfRenderWindow_clear(window,sfBlack);
+			
 			/* Background */ 
 			sfRenderWindow_drawSprite(window,bg,NULL);
+			
 		if(cl_first==false){
 			cl_first = true;
+			/* Clear */
 			for(int i = 0; i < 10; i++){
 				for(int j = 0; j < 7; j++){
 					c_level[i][j] = 0;}}
@@ -555,38 +590,19 @@ int main(int argc, char* argv[]){
 				for(int j = 0; j < 7; j++){
 					ll_act[i][j] = 0;}}
 					
-			switch(cur_level){
-			case 1: 
+			/* Apply */
 			for(int i = 0; i < 10; i++){
 				for(int j = 0; j < 7; j++){
-					c_level[i][j] = level_1[i][j];}}
-					
-			break;
-			case 2: 
-			for(int i = 0; i < 10; i++){
-				for(int j = 0; j < 7; j++){
-					c_level[i][j] = level_2[i][j];}}
-					
-			break;
-			case 3: 
-			for(int i = 0; i < 10; i++){
-				for(int j = 0; j < 7; j++){
-					c_level[i][j] = level_3[i][j];}}
-			break;
-			case 4: 
-			for(int i = 0; i < 10; i++){
-				for(int j = 0; j < 7; j++){
-					c_level[i][j] = level_4[i][j];}}
-			break;
-			
+					c_level[i][j] = levels[cur_level][i][j];
+				}
 			}
 		}
+		
 			load_level(ll_ctr_x,ll_ctr_y,c_level,texres,bricks);
 			
-			
 			ll_act[ll_ctr_y][ll_ctr_x] = true;
-			sfVector2f vec2x = {32+ 41 +(30+ll_ctr_x*82) - (200/1.5),20+ll_ctr_y*30};
-			sfVector2f vec2y = {32+ 30+ll_ctr_x*82,41 +(30+ll_ctr_y*30) - (200/1.5)};
+			sfVector2f vec2x = {32+ 41 +(6+ll_ctr_x*90) - (200/1.5),20+ll_ctr_y*30 -4};
+			sfVector2f vec2y = {-8+38+ll_ctr_x*90,41 +(30+ll_ctr_y*30) - (200/1.5) -4};
 			
 			sfRectangleShape_setPosition(xlvlbox,vec2x);
 			sfRectangleShape_setPosition(ylvlbox,vec2y);
@@ -655,7 +671,7 @@ int main(int argc, char* argv[]){
 			    if(bricks[i][j]->worth>0){
 				sfSprite_setPosition(bricks[i][j]->sprite,make_vec2(0,-200));
 					combo++;
-					combo_ctr=120*2;
+					combo_ctr=framerate*combo_time;
 					points+=(bricks[i][j]->worth*combo);
 					bricks[i][j]->hit = true;
 					/* Check Level Complete */
@@ -670,7 +686,7 @@ int main(int argc, char* argv[]){
 						sfSprite_setPosition(ball,make_vec2(640/2,640-200));
 						running = false;
 						start_count=3;
-						start_ctr = 60;
+						start_ctr = framerate;
 					
 						cur_level++;
 						game_start=false;
@@ -705,7 +721,7 @@ int main(int argc, char* argv[]){
 			    if(bricks[i][j]->worth>0){
 				sfSprite_setPosition(bricks[i][j]->sprite,make_vec2(0,-200));
 					combo++;
-					combo_ctr=120*2;
+					combo_ctr=framerate*combo_time;
 					points+=(bricks[i][j]->worth*combo);
 					bricks[i][j]->hit = true;
 					/* Check Level Complete */
@@ -722,7 +738,7 @@ int main(int argc, char* argv[]){
 						y_speed=b_speed;
 						running = false;
 						start_count=3;
-						start_ctr = 60;
+						start_ctr = framerate;
 						
 						cur_level++;
 						game_start=false;
@@ -759,14 +775,14 @@ int main(int argc, char* argv[]){
 			lives--;
 			if(lives==0){ game_end=true; }
 			else{
-			sfSprite_setPosition(ball,make_vec2(640/2,640-200));
-			x_speed=b_speed;
-			y_speed=b_speed;
-			running = false;
-			start_count=3;
-			start_ctr = 60;
-			ready = false;
-			game_start=false;
+			  sfSprite_setPosition(ball,make_vec2(640/2,640-200));
+			  x_speed=b_speed;
+			  y_speed=b_speed;
+			  running = false;
+			  start_count=3;
+			  start_ctr = 60;
+			  ready = false;
+			  game_start=false;
 			}
 		}
 		/* //Ball Border Check */
@@ -827,7 +843,7 @@ int main(int argc, char* argv[]){
 		  sfText_setString(text_combo,xcombo);
 		  sfRenderWindow_drawText(window,text_combo,NULL);
 		  
-		  sfRectangleShape_setSize(combo_rect,make_vec2(combo_ctr/2,10));
+		  sfRectangleShape_setSize(combo_rect,make_vec2((combo_ctr*64/framerate),10));
 		  sfRenderWindow_drawRectangleShape(window,combo_rect,NULL);
 		  
 		  char xlives[12] = {0};
@@ -849,15 +865,13 @@ int main(int argc, char* argv[]){
 		  }
 		  
 		  char xbspeed[12] = {0};
-		  sprintf(xbspeed,"Enter to Start\nSpeed:<- %.2f ->",b_speed);
+		  sprintf(xbspeed,"Enter to Start\nSpeed:<- x%.2f ->",b_speed);
 		  sfText_setString(text_bspeed,xbspeed);
 		  if(!speed_set){
 			sfRenderWindow_drawText(window,text_bspeed,NULL);
 		  }
-	}			
-
-			
-		  if(game_end){
+	}
+	 else{
 			sfRenderWindow_drawText(window,text_gameover,NULL);
 			sfText_setPosition(text_points,make_vec2(280,400));
 		    sfRenderWindow_drawText(window,text_points,NULL);
