@@ -223,7 +223,7 @@ int main(int argc, char* argv[]){
   int points = 0;
   double combo_ctr= 0;
   double combo= 0;
-  double combo_time = 2;
+  double combo_time = 2.5;
   
   int lives = 3;
   int frame = 0;
