@@ -759,10 +759,11 @@ int main(int argc, char* argv[]){
 		/* combo count */
 		if(combo>0){
 		  if(alive_bricks<10){
-			combo_ctr-=( 0.4 + (alive_bricks/70));
+			combo_ctr-=( 0.5 + (alive_bricks/70));
 			if(combo_ctr<=0){combo=0;}
 		  }else{
 			combo_ctr--;
+			if(combo_ctr<=0){combo=0;}
 		  }
 		}
 		
