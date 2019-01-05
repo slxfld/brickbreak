@@ -244,6 +244,8 @@ int main(int argc, char* argv[]){
   
   double alive_bricks = 70;
   
+  double font_ctr = 0;
+  
   bool level_load = false;
   int  ll_ctr_x = 0;
   int  ll_ctr_y = 0;
@@ -674,9 +676,11 @@ int main(int argc, char* argv[]){
 				sfSprite_setPosition(bricks[i][j]->sprite,make_vec2(0,-200));
 				
 					combo_ctr=combo_ctr+(framerate*(bricks[i][j]->worth/100));
+					
 					if(combo_ctr>(framerate*1)){
-					  combo++;
+					  combo+=bricks[i][j]->worth/100;
 					  combo_ctr=combo_ctr-framerate*1;
+					  font_ctr=10;
 					}
 					
 					points+=(bricks[i][j]->worth*combo);
@@ -731,8 +735,9 @@ int main(int argc, char* argv[]){
 				
 					combo_ctr=combo_ctr+(framerate*(bricks[i][j]->worth/100));
 					if(combo_ctr>(framerate*1)){
-					  combo++;
+					  combo+=bricks[i][j]->worth/100;
 					  combo_ctr=combo_ctr-framerate*1;
+					  font_ctr=10;
 					}
 					
 					points+=(bricks[i][j]->worth*combo);
@@ -769,12 +774,14 @@ int main(int argc, char* argv[]){
 		/* combo count */
 
 		if(combo_ctr>0){
-			combo_ctr-=(0.02*(combo));
+			combo_ctr-=(0.04*(combo));
 			if(combo_ctr<=0&&combo!=1){combo--; combo_ctr=framerate*1;}
 		}
 		if(combo_ctr>framerate*1){
 			combo_ctr=framerate*1;
 		}
+
+		if(font_ctr>0){font_ctr--;}		
 		
 		/* Ball Border Check */
 		if(sfSprite_getPosition(ball).x+16>640){
@@ -808,7 +815,7 @@ int main(int argc, char* argv[]){
 		sfFloatRect pad_rect = sfSprite_getGlobalBounds(pad);
 		sfFloatRect* pa_rect = &pad_rect;
 		if(sfFloatRect_intersects(p_ball,pa_rect,NULL)&&
-		   sfSprite_getPosition(ball).y+16<sfSprite_getPosition(pad).y+10) { 
+		   sfSprite_getPosition(ball).y+16<sfSprite_getPosition(pad).y+14) { 
 			if(y_speed>0){y_speed=-y_speed;}
 			/* calc new x-speed */
 			// length of pad = 96
@@ -882,6 +889,7 @@ int main(int argc, char* argv[]){
 		  char xbspeed[12] = {0};
 		  sprintf(xbspeed,"Enter to Start\nSpeed:<- x%.2f ->",b_speed);
 		  sfText_setString(text_bspeed,xbspeed);
+		  sfText_setScale(text_combo,make_Dvec2(1+(font_ctr/20),1+(font_ctr/20)));
 		  if(!speed_set){
 			sfRenderWindow_drawText(window,text_bspeed,NULL);
 		  }
