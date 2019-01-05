@@ -342,7 +342,7 @@ int main(int argc, char* argv[]){
     }
 
 	sfRenderWindow_setFramerateLimit(window,60);
-	
+	sfRenderWindow_setMouseCursorVisible(window,sfFalse);
   typedef enum {
     MENU,
     GAME,
@@ -355,6 +355,11 @@ int main(int argc, char* argv[]){
     {
         while (sfRenderWindow_pollEvent(window, &event))
         {
+		
+			if (event.type == sfEvtMouseMoved){
+				sfVector2i vec2m = sfMouse_getPositionRenderWindow(window);
+				sfSprite_setPosition(pad,make_vec2(vec2m.x-(96/2),640-50));
+			}
 
             if (event.type == sfEvtClosed){
                 sfRenderWindow_close(window);
@@ -431,7 +436,7 @@ int main(int argc, char* argv[]){
 				L_KEY_RIGHT=false;
 			}
 			
-			if(sfKeyboard_isKeyPressed(sfKeyReturn))
+			if(sfKeyboard_isKeyPressed(sfKeyReturn)||sfMouse_isButtonPressed(sfMouseLeft))
 			{
 				KEY_ENTER = true;
 				if(!L_KEY_ENTER&&!game_start){
