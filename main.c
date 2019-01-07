@@ -895,7 +895,8 @@ int main(int argc, char* argv[]){
 				running = false;
 			}
 			else{
-			  sfSprite_setPosition(ball,make_vec2(640/2,640-200));
+			  //sfSprite_setPosition(ball,make_vec2(640/2,640-200));
+sfSprite_setPosition(ball,make_vec2(sfSprite_getPosition(pad).x+(96/2)-10,sfSprite_getPosition(pad).y-30));
 			  x_speed=b_speed;
 			  y_speed=b_speed;
 			  running = false;
@@ -919,6 +920,10 @@ int main(int argc, char* argv[]){
 			// length of pad = 96
 			x_speed = (-b_speed +((sfSprite_getPosition(ball).x-sfSprite_getPosition(pad).x)/96)*(b_speed*2) );
 		}
+	}
+	else
+	{
+		sfSprite_setPosition(ball,make_vec2(sfSprite_getPosition(pad).x+(96/2)-10,sfSprite_getPosition(pad).y-30));
 	}
 		
 		if(start_count>0){
