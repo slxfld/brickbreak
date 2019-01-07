@@ -300,6 +300,7 @@ int main(int argc, char* argv[]){
   bool KEY_ENTER = false;
   bool L_KEY_ENTER = false;
 	
+  bool FOCUS = true;
 	
 	
   sfSprite* ball = sfSprite_create();
@@ -414,140 +415,152 @@ int main(int argc, char* argv[]){
                 sfRenderWindow_close(window);
 				break;
 			}
-
-			if(sfKeyboard_isKeyPressed(sfKeyW))
-			{
-				KEY_UP = true;
-				if(!L_KEY_UP&&!game_start){
-					L_KEY_UP=true;
-					if(menu_selected>1){
-					  menu_selected--;
+			
+            if (event.type == sfEvtGainedFocus){
+                FOCUS=true;
+			}
+            if (event.type == sfEvtLostFocus){
+                FOCUS=false;
+			}
+			
+			
+		if(FOCUS){
+			
+				if(sfKeyboard_isKeyPressed(sfKeyW))
+				{
+					KEY_UP = true;
+					if(!L_KEY_UP&&!game_start){
+						L_KEY_UP=true;
+						if(menu_selected>1){
+						  menu_selected--;
+						}
 					}
 				}
-			}
-			else
-			{
-				KEY_UP = false;
-				L_KEY_UP=false;
-			}
-			
-			if(sfKeyboard_isKeyPressed(sfKeyS))
-			{
-				KEY_DOWN = true;
-				if(!L_KEY_DOWN&&!game_start){
-					L_KEY_DOWN=true;
-					if(menu_selected<3){
-					  menu_selected++;
+				else
+				{
+					KEY_UP = false;
+					L_KEY_UP=false;
+				}
+				
+				if(sfKeyboard_isKeyPressed(sfKeyS))
+				{
+					KEY_DOWN = true;
+					if(!L_KEY_DOWN&&!game_start){
+						L_KEY_DOWN=true;
+						if(menu_selected<3){
+						  menu_selected++;
+						}
 					}
 				}
-			}
-			else
-			{
-				KEY_DOWN = false;
-				L_KEY_DOWN=false;
-			}
-			
-			
-			
-			if(sfKeyboard_isKeyPressed(sfKeyA))
-			{
-				KEY_LEFT = true;
-				if(!L_KEY_LEFT&&!game_start){
-					L_KEY_LEFT=true;
-					if(!speed_set){
-						if(b_speed>0){b_speed-=0.5;}
-						x_speed=b_speed;
-						y_speed=b_speed;
+				else
+				{
+					KEY_DOWN = false;
+					L_KEY_DOWN=false;
+				}
+				
+				
+				
+				if(sfKeyboard_isKeyPressed(sfKeyA))
+				{
+					KEY_LEFT = true;
+					if(!L_KEY_LEFT&&!game_start){
+						L_KEY_LEFT=true;
+						if(!speed_set){
+							if(b_speed>0){b_speed-=0.5;}
+							x_speed=b_speed;
+							y_speed=b_speed;
+						}
 					}
 				}
-			}
-			else
-			{
-				KEY_LEFT = false;
-				L_KEY_LEFT=false;
-			}
-			
-			if(sfKeyboard_isKeyPressed(sfKeyD))
-			{
-				KEY_RIGHT = true;
-				if(!L_KEY_RIGHT&&!game_start){
-					L_KEY_RIGHT=true;
-					if(!speed_set){
-						if(b_speed<10){ b_speed+=0.5;}
-						x_speed=b_speed;
-						y_speed=b_speed;
+				else
+				{
+					KEY_LEFT = false;
+					L_KEY_LEFT=false;
+				}
+				
+				if(sfKeyboard_isKeyPressed(sfKeyD))
+				{
+					KEY_RIGHT = true;
+					if(!L_KEY_RIGHT&&!game_start){
+						L_KEY_RIGHT=true;
+						if(!speed_set){
+							if(b_speed<10){ b_speed+=0.5;}
+							x_speed=b_speed;
+							y_speed=b_speed;
+						}
 					}
 				}
-			}
-			else
-			{
-				KEY_RIGHT = false;
-				L_KEY_RIGHT=false;
-			}
-			
-			if(sfKeyboard_isKeyPressed(sfKeyReturn)||sfMouse_isButtonPressed(sfMouseLeft))
-			{
-				KEY_ENTER = true;
-				if(!L_KEY_ENTER&&!game_start){
-					L_KEY_ENTER=true;
-					switch(state){
-						case MENU: 
-							switch(menu_selected)
-							{
-							case 1:
-								state = GAME;
-								if(!game_start){
-									level_load = true;
-									lives = 3;
-									combo=0;
-									combo_ctr=0;
-									font_ctr=0;
-									points=0;
+				else
+				{
+					KEY_RIGHT = false;
+					L_KEY_RIGHT=false;
+				}
+				
+				if(sfKeyboard_isKeyPressed(sfKeyReturn)||sfMouse_isButtonPressed(sfMouseLeft))
+				{
+					KEY_ENTER = true;
+					if(!L_KEY_ENTER&&!game_start){
+						L_KEY_ENTER=true;
+						switch(state){
+							case MENU: 
+								switch(menu_selected)
+								{
+								case 1:
+									state = GAME;
+									if(!game_start){
+										level_load = true;
+										lives = 3;
+										combo=0;
+										combo_ctr=0;
+										font_ctr=0;
+										points=0;
+									}
+								break;
+								case 2:
+									state = HIGHSCORES;
+								break;
+								case 3:
+									//state = OPTIONS;
+								break;
 								}
 							break;
-							case 2:
-								state = HIGHSCORES;
-							break;
-							case 3:
-								//state = OPTIONS;
-							break;
-							}
-						break;
-						case HIGHSCORES:
-							state = MENU;
-						break;
-						case GAME: 
-							if(!game_end){
-								ready = true;
-								game_start = true;
-								speed_set = true;
-							}else{
-								sfText_setPosition(text_points,make_vec2(0,0));
-								sfSprite_setPosition(pad,make_vec2(-40+640/2,640-50));
-								sfSprite_setPosition(ball,make_vec2(640/2,640-200));
-								cur_level = 1;
-								cl_first=false;
-								ready = false;
-								game_start = false;
-								game_end=false;
-								level_loaded=false;
-								level_load=false;
-								speed_set = false;
-								running = false;
+							case HIGHSCORES:
 								state = MENU;
-							}
-							
-						break;
+							break;
+							case GAME: 
+								if(!game_end){
+									ready = true;
+									game_start = true;
+									speed_set = true;
+								}else{
+									sfText_setPosition(text_points,make_vec2(0,0));
+									sfSprite_setPosition(pad,make_vec2(-40+640/2,640-50));
+									sfSprite_setPosition(ball,make_vec2(640/2,640-200));
+									cur_level = 1;
+									cl_first=false;
+									ready = false;
+									game_start = false;
+									game_end=false;
+									level_loaded=false;
+									level_load=false;
+									speed_set = false;
+									running = false;
+									state = MENU;
+								}
+								
+							break;
 
+						}
 					}
 				}
-			}
-			else
-			{
-				KEY_ENTER = false;
-				L_KEY_ENTER=false;
-			}
+				else
+				{
+					KEY_ENTER = false;
+					L_KEY_ENTER=false;
+				}
 
+			} /*End Focus*/
+			
         }
 
 		
