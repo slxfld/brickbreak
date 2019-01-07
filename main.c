@@ -208,9 +208,9 @@ int main(int argc, char* argv[]){
 			{5,5,0,0,0,5,5},
 			{6,0,0,0,0,0,6},
 			{1,0,0,0,0,0,1},
-			{2,0,7,0,7,0,2},
-			{3,7,0,0,0,7,3},
-			{7,0,0,0,0,0,7}
+			{2,0,0,0,0,0,2},
+			{3,0,0,0,0,0,3},
+			{0,0,0,0,0,0,0}
 		
 		}
 	};
@@ -368,6 +368,20 @@ int main(int argc, char* argv[]){
   sfText_setPosition(textc,make_vec2(0,620));
   sfText_setString(textc,"(C) 2019 slxfld");
   
+  int highscore[10];
+		for(int i = 0; i < 11; i++)
+		{
+			highscore[i] = 0;
+		}
+  sfText* text_hisc[10];
+		for(int i = 0; i < 10; i++)
+		{
+			text_hisc[i] = sfText_create();
+			sfText_setFont(text_hisc[i],font);
+			sfText_setString(text_hisc[i],"Points:");
+			sfText_setCharacterSize(text_hisc[i],24);
+			sfText_setPosition(text_hisc[i],make_vec2(200,200+(i*30)));
+		}
   
   sfVideoMode mode = {640, 640, 32};
   sfRenderWindow* window;    
@@ -484,20 +498,45 @@ int main(int argc, char* argv[]){
 								state = GAME;
 								if(!game_start){
 									level_load = true;
+									lives = 3;
+									combo=0;
+									combo_ctr=0;
+									font_ctr=0;
+									points=0;
 								}
 							break;
 							case 2:
-								
+								state = HIGHSCORES;
 							break;
 							case 3:
-								state = OPTIONS;
+								//state = OPTIONS;
 							break;
 							}
 						break;
+						case HIGHSCORES:
+							state = MENU;
+						break;
 						case GAME: 
-							ready = true;
-							game_start = true;
-							speed_set = true;
+							if(!game_end){
+								ready = true;
+								game_start = true;
+								speed_set = true;
+							}else{
+								sfText_setPosition(text_points,make_vec2(0,0));
+								sfSprite_setPosition(pad,make_vec2(-40+640/2,640-50));
+								sfSprite_setPosition(ball,make_vec2(640/2,640-200));
+								cur_level = 1;
+								cl_first=false;
+								ready = false;
+								game_start = false;
+								game_end=false;
+								level_loaded=false;
+								level_load=false;
+								speed_set = false;
+								running = false;
+								state = MENU;
+							}
+							
 						break;
 
 					}
@@ -528,6 +567,26 @@ int main(int argc, char* argv[]){
 		sfRenderWindow_display(window);
 	break;
 
+	case HIGHSCORES:
+		/* Clear */
+		sfRenderWindow_clear(window,sfBlack);
+		/* Background */ 
+		sfRenderWindow_drawSprite(window,bg,NULL);
+
+		for(int i = 0; i < 9; i++)
+		{
+		  
+		  char xhigh[24] = {0};
+		  sprintf(xhigh,"Points: %d",highscore[i]);
+		  sfText_setString(text_hisc[i],xhigh);
+		  sfRenderWindow_drawText(window,text_hisc[i],NULL);
+		}
+		
+		/* Display */
+		sfRenderWindow_display(window);
+	break;
+
+	
 	case MENU:
 		/* Clear */
 		sfRenderWindow_clear(window,sfBlack);
@@ -572,12 +631,35 @@ int main(int argc, char* argv[]){
 				}
 			}
 		}
-			
+
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		/* load */
 		if(level_load){
 		
+				if(cur_level==9||lives==0){
+					game_end=true;
+					level_load=false;
+					level_loaded=true;
+					highscore[9] = points;
+					for(int i = 0; i < 10; i++)
+					{
+						if(!i){}
+						else{
+							highscore[i] = highscore[i+1];
+						}
+					}
+				}
+				else
+				{
+				
 			/* Clear */
 			sfRenderWindow_clear(window,sfBlack);
 			
@@ -638,8 +720,16 @@ int main(int argc, char* argv[]){
 		
 			/* Display */
 			sfRenderWindow_display(window);
+			}
 		}
 		/* /load */
+
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -653,8 +743,8 @@ int main(int argc, char* argv[]){
 		
 		sfVector2f vec2 = {-200,-200};
 		sfVector2f l_vec2 = {};
-			sfRectangleShape_setPosition(xlvlbox,vec2);
-			sfRectangleShape_setPosition(ylvlbox,vec2);
+		sfRectangleShape_setPosition(xlvlbox,vec2);
+		sfRectangleShape_setPosition(ylvlbox,vec2);
 		 l_vec2 = make_vec2(sfSprite_getPosition(ball).x,sfSprite_getPosition(ball).y);
 		
 		sfSprite_move(ball,make_Dvec2(x_speed,0));
@@ -781,7 +871,7 @@ int main(int argc, char* argv[]){
 			combo_ctr=framerate*1;
 		}
 
-		if(font_ctr>0){font_ctr--;}		
+		if(font_ctr>0){font_ctr--;}
 		
 		/* Ball Border Check */
 		if(sfSprite_getPosition(ball).x+16>640){
@@ -795,7 +885,15 @@ int main(int argc, char* argv[]){
 		}
 		if(sfSprite_getPosition(ball).y>640){
 			lives--;
-			if(lives==0){ game_end=true; }
+			if(lives==0){ 
+			
+				cur_level = 0;
+				game_start=false;
+				level_loaded=false;
+				level_load=true;
+				cl_first=false;
+				running = false;
+			}
 			else{
 			  sfSprite_setPosition(ball,make_vec2(640/2,640-200));
 			  x_speed=b_speed;
@@ -850,13 +948,13 @@ int main(int argc, char* argv[]){
 			sfRenderWindow_drawSprite(window,bricks[i][j]->sprite,NULL);
 		  }
 		}
-
+		  char frames[12] = {0};
+		  sprintf(frames,"Points:  %d",points);
 		  sfRenderWindow_drawSprite(window,ball,NULL);
 		  sfRenderWindow_drawSprite(window,pad,NULL);
 	if(!game_end){
 		  frame++;
-		  char frames[12] = {0};
-		  sprintf(frames,"Points: %d",points);
+
 		  sfText_setString(text_points,frames);
 		  sfRenderWindow_drawText(window,text_points,NULL);
 		  
@@ -896,7 +994,11 @@ int main(int argc, char* argv[]){
 	}
 	 else{
 			sfRenderWindow_drawText(window,text_gameover,NULL);
-			sfText_setPosition(text_points,make_vec2(280,400));
+			sfText_setPosition(text_points,make_vec2(270,380));
+			if(cur_level==9){
+				strcat(frames,"\nAll Levels Completed!");
+			}
+			sfText_setString(text_points,frames);
 		    sfRenderWindow_drawText(window,text_points,NULL);
 		  }
 		  /* Display */
