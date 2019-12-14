@@ -10,4 +10,4 @@ gcc main.c -Ipath\to\CSFML\include -Lpath\to\CSFML\lib\gcc  -lcsfml-graphics -lc
 # License
 GPLv3
 # Author
-**Simon Lixenfeld 2019**
+*Simon Lixenfeld 2019*
