@@ -1,5 +1,5 @@
 # Breakout70
-block-breaking game in C using CSFML
+A Breakout clone written in C, C++ using CSFML
 # Releases
 https://github.com/slxfld/brickbreak/releases
 # Build 
