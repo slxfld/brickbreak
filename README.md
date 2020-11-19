@@ -1,5 +1,6 @@
 # Breakout70
-A Breakout clone written in C, C++ using CSFML
+A Breakout clone written in C, C# using CSFML </br>
+
 # Releases
 https://github.com/slxfld/brickbreak/releases
 # Build 
