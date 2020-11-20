@@ -8,10 +8,8 @@ C:<br>
 C++:<br>
 `Visual Studio & vcpkg sfml`
 
-
-
 # License
 GPLv3
 
 # Author
-*Simon Lixenfeld 2019*
+*Simon Lixenfeld 2020*
