@@ -4,13 +4,7 @@
 class Menu
 {
 public:
-	Menu()
-	{
-		std::cout << "Menu header\n";
-	}
-	~Menu()
-	{
-
-	}
+	Menu();
+	Menu(sf::Texture texture);
 };
 

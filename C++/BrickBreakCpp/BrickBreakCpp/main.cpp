@@ -1,16 +1,26 @@
 #include "main.h"
-#include "SFML/Window.hpp"
-#include "SFML/Graphics.hpp"
 #include "Menu.h"
 #include "RessourceLoader.h"
+#include "SFML/Window.hpp"
+#include "SFML/Graphics.hpp"
+
+enum GAME_STATE
+{
+    MAIN_MENU,
+    LEVEL,
+    HIGHSCORES,
+    OPTIONS
+};
+
 
 int main()
 {
     Menu menu;
     RessourceLoader loader;
 
-    sf::RenderWindow window(sf::VideoMode(800, 640), "Breakout 70");
+    GAME_STATE state = GAME_STATE::MAIN_MENU;
 
+    sf::RenderWindow window(sf::VideoMode(800, 640), "Breakout 70");
     while (window.isOpen())
     {
         sf::Event event;
