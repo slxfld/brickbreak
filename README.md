@@ -1,5 +1,5 @@
 # Breakout70
-A Breakout clone written in C++ and C using SFML </br>
+A Breakout clone written in C++ and C using [![SFML](https://img.shields.io/badge/SFML%20--brightgreen.svg?style=flat-square)](https://www.sfml-dev.org/) </br>
 
 # Build 
 C:<br>
@@ -8,8 +8,7 @@ C:<br>
 C++:<br>
 `Visual Studio & vcpkg sfml`
 
-</br>
-[![SFML](https://img.shields.io/badge/SFML%20--brightgreen.svg?style=flat-square)](https://www.sfml-dev.org/)
+
 
 # License
 GPLv3
