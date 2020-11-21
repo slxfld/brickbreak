@@ -8,6 +8,7 @@ public:
 	int combo;
 	int combo_mult;
 	int speed;
+
 	LevelData();
 	void setDefault();
 };

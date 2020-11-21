@@ -3,3 +3,8 @@ Paddle::Paddle()
 {
 
 }
+
+Paddle::Paddle(RessourceLoader& rl)
+{
+
+}

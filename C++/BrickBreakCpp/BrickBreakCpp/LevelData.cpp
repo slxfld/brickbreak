@@ -1,7 +1,7 @@
 #include "LevelData.h"
 LevelData::LevelData()
 {
-
+	setDefault();
 }
 
 void LevelData::setDefault()

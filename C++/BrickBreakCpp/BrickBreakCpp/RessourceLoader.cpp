@@ -15,5 +15,10 @@ void RessourceLoader::load()
 	BRICK_1_R1_tex.loadFromFile("./png/brick01r1.png");
 	BRICK_1_V1_tex.loadFromFile("./png/brick01v1.png");
 	BRICK_1_Y1_tex.loadFromFile("./png/brick01y1.png");
+	
+	PAD_tex.loadFromFile("./png/pad2.png");
+	BACKGROUND_tex.loadFromFile("./png/bg.png");
+	BALL_tex.loadFromFile("./png/ball.png");
+
 	std::cout << "<Ressource Loader> All Files Loaded!\n";
 }

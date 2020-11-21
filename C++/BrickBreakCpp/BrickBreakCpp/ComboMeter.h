@@ -1,9 +1,10 @@
 #include "GameObject.h"
+#include "RessourceLoader.h"
 #pragma once
 class ComboMeter : public GameObject
 {
 	public:
 		ComboMeter();
-		ComboMeter(sf::Texture texture);
+		ComboMeter(RessourceLoader &rl);
 };
 

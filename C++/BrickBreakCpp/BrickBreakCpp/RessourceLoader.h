@@ -19,11 +19,13 @@ public:
 	sf::Texture MENU_tex;
 	sf::Texture BLANK_MENU_tex;
 
+	sf::Texture MENU_BACKGROUND;
+
 	sf::Texture BALL_tex;
 	sf::Texture PAD_tex;
 
+
 	RessourceLoader();
-	~RessourceLoader();
 
 	void load();
 };

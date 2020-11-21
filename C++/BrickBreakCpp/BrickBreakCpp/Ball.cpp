@@ -5,7 +5,7 @@ Ball::Ball()
 
 }
 
-Ball::Ball(sf::Texture texture)
+Ball::Ball(RessourceLoader &rl)
 {
-	sprite.setTexture(texture);
+	sprite.setTexture(rl.BALL_tex);
 }

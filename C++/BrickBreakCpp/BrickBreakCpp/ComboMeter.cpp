@@ -3,7 +3,7 @@ ComboMeter::ComboMeter()
 {
 
 }
-ComboMeter::ComboMeter(sf::Texture texture)
+ComboMeter::ComboMeter(RessourceLoader &rl)
 {
 
 }

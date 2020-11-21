@@ -1,8 +1,8 @@
 #include "GameObject.h"
-
+#include "RessourceLoader.h"
 #pragma once
 class Ball : public GameObject
 {
 	Ball();
-	Ball(sf::Texture texture);
+	Ball(RessourceLoader &rl);
 };

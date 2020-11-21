@@ -1,9 +1,10 @@
 #include "GameObject.h"
+#include "RessourceLoader.h"
 #pragma once
 class Paddle : public GameObject
 {
 public:
 	Paddle();
-	Paddle(sf::Texture  texture);
+	Paddle(RessourceLoader &rl);
 };
 
