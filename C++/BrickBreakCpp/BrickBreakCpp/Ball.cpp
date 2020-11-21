@@ -1,10 +1,6 @@
 #include "Ball.h"
 #include "SFML/Graphics.hpp"
 
-Ball::Ball()
-{
-
-}
 
 Ball::Ball(RessourceLoader* rl)
 {
@@ -20,11 +16,17 @@ void Ball::draw(sf::RenderWindow& window)
 
 void Ball::update()
 {
-	sprite.move(vx, vy);
+
 }
 
 void Ball::setDefault()
 {
 	vx = 2;
 	vy = -2;
+}
+
+void Ball::calculateVX(sf::Vector2f v1, sf::Vector2f v2)
+{
+	vx = ((v1.x - v2.x)) / 10;
+
 }

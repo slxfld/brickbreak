@@ -8,12 +8,12 @@
 class Menu : public GameObject
 {
 	public:
-	sf::Sprite background;
 	sf::Sprite startButton;
 	sf::Sprite scoreButton;
 	sf::Sprite exitButton;
 
 	int buttonSelectIndex = 1;
+	bool enterGame = false;
 
 	Menu(RessourceLoader *rl);
 

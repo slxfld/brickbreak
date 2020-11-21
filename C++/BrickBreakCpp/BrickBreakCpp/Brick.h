@@ -9,7 +9,10 @@ class Brick: public GameObject
 {
 	public:
 	Brick();
-	Brick(int value, RessourceLoader* rl);
+	Brick(int value, RessourceLoader *rl);
+
+	void draw(sf::RenderWindow& window);
+	void update();
 };
 
 #endif

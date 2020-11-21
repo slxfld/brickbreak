@@ -13,7 +13,6 @@ enum GAME_STATE
     OPTIONS
 };
 
-
 int main()
 {
     RessourceLoader loader;
@@ -27,21 +26,35 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 640), "Breakout 70");
     window.setFramerateLimit(60);
 
+    sf::Sprite background;
+    background.setTexture(loader.BACKGROUND_tex);
+    background.setScale(sf::Vector2f(1.4,1.4));
+
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
 
-        // Input
-        switch (state)
-        {
+            // Input
+            switch (state)
+            {
             case MAIN_MENU:menu.input(event); break;
             case LEVEL: level.input(event); break;
-        }
+            }
 
             if (event.type == sf::Event::Closed)
                 window.close();
+        }
+        //States
+        if (menu.enterGame)
+        {
+            menu.enterGame = false;
+            state = LEVEL;
+            level.begin();
+        }
+        if (level.gameover == true) {
+            state = MAIN_MENU;
         }
         // Update
         switch (state)
@@ -51,6 +64,7 @@ int main()
         }
 
         window.clear();
+        window.draw(background);
         // Render
         switch (state)
         {

@@ -5,7 +5,6 @@ Menu::Menu(RessourceLoader *rl)
 {
 	Menu::rl = rl;
 	std::cout << "<Menu> create\n";
-	background.setTexture(rl->BACKGROUND_tex);
 	setupButtons(rl);
 }
 
@@ -30,7 +29,7 @@ void Menu::input(sf::Event& event)
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 		switch (buttonSelectIndex)
 		{
-			case 1: startButton.setTexture(rl->BUTTON_DN_tex); break;
+			case 1: startButton.setTexture(rl->BUTTON_DN_tex); enterGame = true; break;
 			case 2: scoreButton.setTexture(rl->BUTTON_DN_tex); break;
 			case 3: exitButton.setTexture(rl->BUTTON_DN_tex); break;
 		}
@@ -38,8 +37,6 @@ void Menu::input(sf::Event& event)
 
 void Menu::draw(sf::RenderWindow &window)
 {
-	window.draw(background);
-
 	sf::RectangleShape rect(sf::Vector2f(10, 10));
 	rect.setPosition(sf::Vector2f(20, 40 + (buttonSelectIndex * 20)));
 	window.draw(rect);

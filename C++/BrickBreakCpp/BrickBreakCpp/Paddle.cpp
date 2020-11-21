@@ -10,15 +10,18 @@ Paddle::Paddle(RessourceLoader* rl)
 
 void Paddle::setDefault()
 {
-
+	sprite.setPosition(sf::Vector2f(320, 420));
 }
 
 void Paddle::update()
 {
-
+	if (move_right)
+		sprite.move(5, 0);
+	if (move_left)
+		sprite.move(-5, 0);
 }
 
-void Paddle::draw()
+void Paddle::draw(sf::RenderWindow &window)
 {
-
+	window.draw(sprite);
 }
