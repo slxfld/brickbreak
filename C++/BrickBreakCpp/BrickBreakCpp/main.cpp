@@ -21,8 +21,8 @@ int main()
 
     GAME_STATE state = MAIN_MENU;
 
-    Menu menu(loader);
-    Level level(loader);
+    Menu menu(&loader);
+    Level level(&loader);
 
     sf::RenderWindow window(sf::VideoMode(800, 640), "Breakout 70");
     window.setFramerateLimit(60);
@@ -32,12 +32,13 @@ int main()
         sf::Event event;
         while (window.pollEvent(event))
         {
-            // Input
-            switch (state)
-            {
-                case MAIN_MENU:menu.input(event); break;
-                case LEVEL: level.input(event); break;
-            }
+
+        // Input
+        switch (state)
+        {
+            case MAIN_MENU:menu.input(event); break;
+            case LEVEL: level.input(event); break;
+        }
 
             if (event.type == sf::Event::Closed)
                 window.close();

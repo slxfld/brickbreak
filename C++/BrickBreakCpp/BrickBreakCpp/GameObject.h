@@ -1,9 +1,11 @@
 #include "SFML/Graphics.hpp"
+#include "RessourceLoader.h"
 #pragma once
 class GameObject
 {
-public:
+	public:
 	sf::Sprite sprite;
+	RessourceLoader* rl;
 
 	GameObject();
 

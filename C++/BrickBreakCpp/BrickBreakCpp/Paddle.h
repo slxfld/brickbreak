@@ -1,10 +1,17 @@
+#ifndef _PADDLE_H_
+#define _PADDLE_H_
+
 #include "GameObject.h"
-#include "RessourceLoader.h"
+
 #pragma once
 class Paddle : public GameObject
 {
-public:
-	Paddle();
-	Paddle(RessourceLoader &rl);
-};
+	public:
 
+	Paddle(RessourceLoader *rl);
+
+	void draw();
+	void update();
+	void setDefault();
+};
+#endif

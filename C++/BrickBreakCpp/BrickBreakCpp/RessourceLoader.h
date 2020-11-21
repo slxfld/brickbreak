@@ -6,7 +6,7 @@
 #pragma once
 class RessourceLoader
 {
-public:
+	public:
 
 	sf::Texture BRICK_1_G1_tex;
 	sf::Texture BRICK_1_B1_tex;
@@ -19,11 +19,13 @@ public:
 	sf::Texture MENU_tex;
 	sf::Texture BLANK_MENU_tex;
 
-	sf::Texture MENU_BACKGROUND;
+	sf::Texture BUTTON_DN_tex;
+	sf::Texture BUTTON_UP_tex;
+
+	sf::Texture MENU_BACKGROUND_tex;
 
 	sf::Texture BALL_tex;
 	sf::Texture PAD_tex;
-
 
 	RessourceLoader();
 
