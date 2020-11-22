@@ -16,6 +16,17 @@ Brick::Brick(int value, RessourceLoader *rl)
 	sprite.setPosition(-500, -500);
 }
 
+void Brick::update()
+{
+	if (falltime > 0)
+	{
+		falltime--;
+		sprite.move(sf::Vector2f(0.1,vy));
+		sprite.rotate(7);
+		vy += 2;
+	}
+}
+
 void Brick::draw(sf::RenderWindow& window)
 {
 	window.draw(sprite);
@@ -23,6 +34,7 @@ void Brick::draw(sf::RenderWindow& window)
 
 void Brick::destroy()
 {
-	sprite.setPosition(-100, -100);
+	falltime = 120;
+	vy = -10;
 	destroyed = true;
 }

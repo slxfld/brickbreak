@@ -36,12 +36,12 @@ void Level::input(sf::Event& event, sf::RenderWindow &window)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) == 1)
 		{
-			leveldata.speed-=0.5;
+			leveldata.speed-=0.25;
 			speedText.setString("Select Speed: " + std::to_string(leveldata.speed));
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) == 1)
 		{
-			leveldata.speed+=0.5;
+			leveldata.speed+=0.25;
 			speedText.setString("Select Speed: " + std::to_string(leveldata.speed));
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
@@ -105,6 +105,7 @@ void Level::start()
 
 void Level::construct(int index)
 {
+	bricksLeft = 0;
 	for (int i = 0; i < 10; i++)
 		for (int j = 0; j < 7; j++)
 		{
@@ -189,9 +190,14 @@ void Level::update()
 	{
 		paddle.update();
 
-		comboText.setString("Combo: " + std::to_string((int)leveldata.combo_mult/10) + "x");
-		int combo = ((int)leveldata.combo_mult % 30)*5;
+		for (int i = 0; i < 10; i++)
+			for (int j = 0; j < 7; j++)
+				bricks[i][j]->update();
 
+
+		comboText.setString("Combo: " + std::to_string((int)leveldata.combo_mult/10) + "x");
+
+		int combo = ((int)leveldata.combo_mult % 30)*5;
 		comboBar.setSize(sf::Vector2f(combo,10));
 
 		// Ball intersects Brick after moving X
@@ -199,11 +205,10 @@ void Level::update()
 		for (int i = 0; i < 10; i++)
 			for (int j = 0; j < 7; j++)
 				if (ball->sprite.getGlobalBounds().intersects(bricks[i][j]->sprite.getGlobalBounds()))
-				{
-					if (ball->iframe == 0)
+					if (ball->iframe == 0 && !bricks[i][j]->destroyed)
 					{
 						std::cout << "Destroy Brick <" << j << "," << i << ">\n";
-						leveldata.combo_mult += (bricks[i][j]->value);
+						leveldata.combo_mult += (bricks[i][j]->value*2);
 						addScore(bricks[i][j]->value);
 						
 						scoreText.setString("Score: " + std::to_string(leveldata.score));
@@ -213,15 +218,13 @@ void Level::update()
 						bricks[i][j]->destroy();
 						ball->deflectX();
 					}
-				}
 
 		// Ball intersects Brick after moving Y
 		ball->sprite.move(0, ball->vy);
 		for (int i = 0; i < 10; i++)
 			for (int j = 0; j < 7; j++)
 				if (ball->sprite.getGlobalBounds().intersects(bricks[i][j]->sprite.getGlobalBounds()))
-				{
-					if (ball->iframe == 0)
+					if (ball->iframe == 0 && !bricks[i][j]->destroyed)
 					{
 						std::cout << "Destroy Brick <" << j << "," << i << ">\n";
 						leveldata.combo_mult += (bricks[i][j]->value);
@@ -232,7 +235,6 @@ void Level::update()
 						bricks[i][j]->destroy();
 						ball->deflectY();
 					}
-				}
 
 		// Check Win
 		if (checkWin())
@@ -266,7 +268,7 @@ void Level::update()
 
 		if (leveldata.combo_mult > 0)
 		{
-			leveldata.combo_mult -= (1 + (1 * leveldata.combo_mult / 2500));
+			leveldata.combo_mult -= (1 + (1 * leveldata.combo_mult / 1000));
 		}
 	}
 }

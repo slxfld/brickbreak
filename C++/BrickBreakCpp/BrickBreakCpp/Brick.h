@@ -12,6 +12,9 @@ class Brick: public GameObject
 	int value = 0;
 	bool destroyed = false;
 
+	int vy = 0;
+	int falltime = 0;
+
 	Brick();
 	Brick(int value, RessourceLoader *rl);
 
