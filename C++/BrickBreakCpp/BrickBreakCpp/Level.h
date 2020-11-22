@@ -18,11 +18,15 @@ class Level : GameObject
 
 	int bricksLeft = 0;
 	bool running = false;
+	bool selectSpeed = false;
 	int spawnTime = 0;
 
 	sf::Text scoreText;
 	sf::Text comboText;
 	sf::Text gameoverText;
+	sf::Text speedText;
+
+	sf::RectangleShape comboBar;
 
 	Life *lives[3];
 
@@ -35,6 +39,7 @@ class Level : GameObject
 
 	void collisions();
 	void next();
+	void addScore(int value);
 	void start();
 	void restart();
 	void construct(int index);

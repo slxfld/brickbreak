@@ -21,6 +21,17 @@ void RessourceLoader::load()
 	BUTTON_DN_tex.loadFromFile(path + "buttondn.png");
 	BUTTON_UP_tex.loadFromFile(path + "buttonup.png");
 
+	BUTTON_PLAY_DN_tex.loadFromFile(path + "buttonPLAYdn.png");
+	BUTTON_PLAY_UP_tex.loadFromFile(path + "buttonPLAYup.png");
+
+	BUTTON_OPTIONS_DN_tex.loadFromFile(path + "buttonOPTIONSdn.png");
+	BUTTON_OPTIONS_UP_tex.loadFromFile(path + "buttonOPTIONSup.png");
+
+	BUTTON_EXIT_DN_tex.loadFromFile(path + "buttonEXITdn.png");
+	BUTTON_EXIT_UP_tex.loadFromFile(path + "buttonEXITup.png");
+
+	SELECT_tex.loadFromFile(path + "select.png");
+
 	PAD_tex.loadFromFile(path + "pad2.png");
 	BACKGROUND_tex.loadFromFile(path + "bg.png");
 	BALL_tex.loadFromFile(path + "ball.png");

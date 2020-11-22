@@ -51,7 +51,10 @@ int main()
         {
             menu.enterGame = false;
             state = LEVEL;
-            level.begin();
+            level.selectSpeed = true;
+            level.speedText.setPosition(sf::Vector2f(300, 400));
+            level.speedText.setString("Select Speed: " + std::to_string(level.leveldata.speed));
+            level.leveldata.setDefault();
         }
         if (level.leveldata.gameover == true) {
             state = MAIN_MENU;

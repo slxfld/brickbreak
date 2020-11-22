@@ -1,7 +1,7 @@
 #include "Level.h"
 #include <string>
 
-Level::Level(RessourceLoader* rl) : paddle(rl)
+Level::Level(RessourceLoader* rl) : paddle(rl), comboBar(sf::Vector2f(10,10))
 {
 	Level::rl = rl;
 	std::cout << "<Level> create\n";
@@ -13,46 +13,81 @@ Level::Level(RessourceLoader* rl) : paddle(rl)
 
 	gameoverText.setFont(rl->font);
 	gameoverText.setPosition(sf::Vector2f(270,320));
+
 	scoreText.setFont(rl->font);
+	scoreText.setScale(sf::Vector2f(0.7, 0.7));
 	scoreText.setPosition(sf::Vector2f(20,20));
 
 	comboText.setFont(rl->font);
+	comboText.setScale(sf::Vector2f(0.7,0.7));
 	comboText.setPosition(sf::Vector2f(20,50));
+
+	speedText.setFont(rl->font);
+	speedText.setScale(sf::Vector2f(1,1));
+
+	comboBar.setPosition(sf::Vector2f(5, 80));
+	comboBar.setFillColor(sf::Color::Green);
 }
 
 
 void Level::input(sf::Event& event, sf::RenderWindow &window)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		paddle.move_left = true;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		paddle.move_right = true;
+	if (selectSpeed)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) == 1)
+		{
+			leveldata.speed-=0.5;
+			speedText.setString("Select Speed: " + std::to_string(leveldata.speed));
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) == 1)
+		{
+			leveldata.speed+=0.5;
+			speedText.setString("Select Speed: " + std::to_string(leveldata.speed));
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			selectSpeed = false;
+			speedText.setPosition(sf::Vector2f(-500, -500));
+			begin();
+		}
+	}
+	else
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			paddle.move_left = true;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			paddle.move_right = true;
 
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		paddle.move_left = false;
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		paddle.move_right = false;
+		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			paddle.move_left = false;
+		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			paddle.move_right = false;
 
-	if (event.type == sf::Event::MouseMoved)
-		paddle.sprite.setPosition(sf::Mouse::getPosition(window).x - (paddle.sprite.getGlobalBounds().width/2), 500);
+		if (event.type == sf::Event::MouseMoved)
+			paddle.sprite.setPosition(sf::Mouse::getPosition(window).x - (paddle.sprite.getGlobalBounds().width / 2), 500);
+	}
 }
 
 void Level::draw(sf::RenderWindow& window)
 {
-	for (int i = 0; i < 10; i++)
-		for (int j = 0; j < 7; j++)
-			bricks[i][j]->draw(window);
+
 
 	if (running)
 	{ 
 		paddle.draw(window);
 		ball->draw(window);
+		for (int i = 0; i < 10; i++)
+			for (int j = 0; j < 7; j++)
+				bricks[i][j]->draw(window);
 	}
 	for (int i = 0; i < leveldata.lives; i++)
 		lives[i]->draw(window);
+
 	window.draw(scoreText);
 	window.draw(comboText);
 	window.draw(gameoverText);
+	window.draw(comboBar);
+	window.draw(speedText);
 }
 
 void Level::collisions()
@@ -78,7 +113,7 @@ void Level::construct(int index)
 			bricks[i][j] = new Brick(leveldata.levelLayout[index][i][j], rl);
 			if (bricks[i][j]->value != 0)
 			{
-				bricks[i][j]->sprite.setPosition(sf::Vector2f(20 + (j * 93), 20 + (i * 35)));
+				bricks[i][j]->sprite.setPosition(sf::Vector2f(70 + (j * 93), 20 + (i * 35)));
 				bricksLeft++;
 			}
 		}
@@ -94,7 +129,6 @@ bool Level::checkWin()
 void Level::begin()
 {
 	ball = new Ball(rl, leveldata.speed);
-	leveldata.setDefault();
 	construct(leveldata.currentLevel);
 	restart();
 }
@@ -124,7 +158,7 @@ void Level::lostLife()
 void Level::next()
 {
 	leveldata.currentLevel++;
-	if (leveldata.currentLevel == 7)
+	if (leveldata.currentLevel == 9)
 	{
 		gameoverText.setString("All Levels complete!\n Your Score is: " + std::to_string(leveldata.score));
 	}
@@ -133,6 +167,11 @@ void Level::next()
 	construct(leveldata.currentLevel);
 	restart();
 	}
+}
+
+void Level::addScore(int value)
+{
+	leveldata.score += value + (value * (leveldata.combo_mult/10));
 }
 
 void Level::update()
@@ -150,7 +189,10 @@ void Level::update()
 	{
 		paddle.update();
 
-		comboText.setString("Combo: " + std::to_string(leveldata.combo));
+		comboText.setString("Combo: " + std::to_string((int)leveldata.combo_mult/10) + "x");
+		int combo = ((int)leveldata.combo_mult % 30)*5;
+
+		comboBar.setSize(sf::Vector2f(combo,10));
 
 		// Ball intersects Brick after moving X
 		ball->sprite.move(ball->vx, 0);
@@ -158,12 +200,15 @@ void Level::update()
 			for (int j = 0; j < 7; j++)
 				if (ball->sprite.getGlobalBounds().intersects(bricks[i][j]->sprite.getGlobalBounds()))
 				{
-					std::cout << "Ball intersected Brick <" << j << "," << i << ">\n";
 					if (ball->iframe == 0)
 					{
-						leveldata.score += bricks[i][j]->value;
+						std::cout << "Destroy Brick <" << j << "," << i << ">\n";
+						leveldata.combo_mult += (bricks[i][j]->value);
+						addScore(bricks[i][j]->value);
+						
 						scoreText.setString("Score: " + std::to_string(leveldata.score));
-						std::cout << leveldata.score;
+
+
 						bricksLeft--;
 						bricks[i][j]->destroy();
 						ball->deflectX();
@@ -176,12 +221,13 @@ void Level::update()
 			for (int j = 0; j < 7; j++)
 				if (ball->sprite.getGlobalBounds().intersects(bricks[i][j]->sprite.getGlobalBounds()))
 				{
-					std::cout << "Ball intersected Brick <" << j << "," << i << ">\n";
 					if (ball->iframe == 0)
 					{
-						leveldata.score += bricks[i][j]->value;
+						std::cout << "Destroy Brick <" << j << "," << i << ">\n";
+						leveldata.combo_mult += (bricks[i][j]->value);
+						addScore(bricks[i][j]->value);
 						scoreText.setString("Score: " + std::to_string(leveldata.score));
-						std::cout << leveldata.score;
+
 						bricksLeft--;
 						bricks[i][j]->destroy();
 						ball->deflectY();
@@ -217,5 +263,10 @@ void Level::update()
 
 		if (ball->iframe > 0)
 			ball->iframe--;
+
+		if (leveldata.combo_mult > 0)
+		{
+			leveldata.combo_mult -= (1 + (1 * leveldata.combo_mult / 2500));
+		}
 	}
 }

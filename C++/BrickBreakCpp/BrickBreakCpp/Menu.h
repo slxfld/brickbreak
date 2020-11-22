@@ -10,7 +10,12 @@ class Menu : public GameObject
 	public:
 	sf::Sprite startButton;
 	sf::Sprite scoreButton;
+	sf::Sprite optionsButton;
 	sf::Sprite exitButton;
+
+	sf::Sprite selecter;
+
+	int buttonTime[3];
 
 	int buttonSelectIndex = 1;
 	bool enterGame = false;
@@ -18,6 +23,7 @@ class Menu : public GameObject
 	Menu(RessourceLoader *rl);
 
 	void input(sf::Event& event);
+	void pressButton(int index);
 	void update();
 	void draw(sf::RenderWindow &window);
 

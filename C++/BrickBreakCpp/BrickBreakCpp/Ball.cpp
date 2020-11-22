@@ -22,7 +22,7 @@ void Ball::update()
 void Ball::setDefault(int speed)
 {
 	Ball::speed = speed;
-	sprite.setPosition(320, 400);
+	sprite.setPosition(400, 400);
 	active = false;
 	vx = -2;
 	vy = -speed;

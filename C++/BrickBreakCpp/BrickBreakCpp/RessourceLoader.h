@@ -22,6 +22,14 @@ class RessourceLoader
 	sf::Texture BUTTON_DN_tex;
 	sf::Texture BUTTON_UP_tex;
 
+	sf::Texture BUTTON_PLAY_DN_tex;
+	sf::Texture BUTTON_PLAY_UP_tex;
+	sf::Texture BUTTON_OPTIONS_DN_tex;
+	sf::Texture BUTTON_OPTIONS_UP_tex;
+	sf::Texture BUTTON_EXIT_DN_tex;
+	sf::Texture BUTTON_EXIT_UP_tex;
+	sf::Texture SELECT_tex;
+
 	sf::Texture MENU_BACKGROUND_tex;
 
 	sf::Texture BALL_tex;

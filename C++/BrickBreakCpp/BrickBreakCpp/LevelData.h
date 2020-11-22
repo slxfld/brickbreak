@@ -9,8 +9,8 @@ class LevelData
 	int score;
 	int currentLevel;
 	int combo;
-	int combo_mult;
-	int speed;
+	double combo_mult;
+	double speed;
     bool gameover;
 
     int levelLayout[10][10][7] =

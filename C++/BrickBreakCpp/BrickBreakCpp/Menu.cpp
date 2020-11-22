@@ -6,47 +6,97 @@ Menu::Menu(RessourceLoader *rl)
 	Menu::rl = rl;
 	std::cout << "<Menu> create\n";
 	setupButtons(rl);
+	selecter.setTexture(rl->SELECT_tex);
+	selecter.setPosition(sf::Vector2f(310, 252 + (buttonSelectIndex * 50)));
 }
 
 void Menu::setupButtons(RessourceLoader *rl)
 {
-	startButton.setTexture(rl->BUTTON_UP_tex);
-	startButton.setPosition(sf::Vector2f(50, 30));
+	startButton.setTexture(rl->BUTTON_PLAY_UP_tex);
+	startButton.setPosition(sf::Vector2f(400 - (startButton.getGlobalBounds().width  / 2), 300));
 
-	scoreButton.setTexture(rl->BUTTON_UP_tex);
-	scoreButton.setPosition(sf::Vector2f(50, 150));
+	optionsButton.setTexture(rl->BUTTON_OPTIONS_UP_tex);
+	optionsButton.setPosition(sf::Vector2f(400 - (optionsButton.getGlobalBounds().width / 2), 350));
 
-	exitButton.setTexture(rl->BUTTON_UP_tex);
-	exitButton.setPosition(sf::Vector2f(50, 200));
+	exitButton.setTexture(rl->BUTTON_EXIT_UP_tex);
+	exitButton.setPosition(sf::Vector2f(400 - (exitButton.getGlobalBounds().width / 2), 400));
+
+	for (int i = 0; i < 3; i++)
+		buttonTime[i] = 0;
 }
 
 void Menu::input(sf::Event& event)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
 		buttonSelectIndex = (buttonSelectIndex + 1 > 3) ? 1 : buttonSelectIndex + 1;
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		selecter.setPosition(sf::Vector2f(310, 252 + (buttonSelectIndex * 50)));
+	}
+		
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
 		buttonSelectIndex = (buttonSelectIndex - 1 <= 0) ? 3 : buttonSelectIndex - 1;
+		selecter.setPosition(sf::Vector2f(310, 252 + (buttonSelectIndex * 50)));
+	}
+		
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+	{
+		selecter.setPosition(sf::Vector2f(-900,-900));
 		switch (buttonSelectIndex)
 		{
-			case 1: startButton.setTexture(rl->BUTTON_DN_tex); enterGame = true; break;
-			case 2: scoreButton.setTexture(rl->BUTTON_DN_tex); break;
-			case 3: exitButton.setTexture(rl->BUTTON_DN_tex); break;
+		case 1: pressButton(0); break;
+		case 2: pressButton(1); break;
+		case 3: pressButton(2); break;
 		}
+	}
+}
+
+void Menu::pressButton(int index)
+{
+	selecter.setPosition(sf::Vector2f(-200, -200));
+	switch (index)
+	{
+		case 0:
+			buttonTime[0] = 30;
+			startButton.setTexture(rl->BUTTON_PLAY_DN_tex);
+		break;
+		case 1:
+			buttonTime[1] = 30;
+			optionsButton.setTexture(rl->BUTTON_OPTIONS_DN_tex);
+			break;
+		case 2:
+			buttonTime[2] = 30;
+			exitButton.setTexture(rl->BUTTON_EXIT_DN_tex);
+			break;
+	}
 }
 
 void Menu::draw(sf::RenderWindow &window)
 {
-	sf::RectangleShape rect(sf::Vector2f(10, 10));
-	rect.setPosition(sf::Vector2f(20, 40 + (buttonSelectIndex * 20)));
-	window.draw(rect);
-
 	window.draw(startButton);
+	window.draw(optionsButton);
 	window.draw(scoreButton);
 	window.draw(exitButton);
+	window.draw(selecter);
 }
 
 void Menu::update()
 {
-
+	for (int i = 0; i < 3; i++)
+		if (buttonTime[i] > 0)
+		{
+			buttonTime[i]--;
+			if (buttonTime[i] == 0)
+			{
+				if (i == 0)
+				{
+					startButton.setTexture(rl->BUTTON_PLAY_UP_tex);
+					enterGame = true;
+				}
+				else if (i == 1)
+					optionsButton.setTexture(rl->BUTTON_OPTIONS_UP_tex);
+				else if (i == 2)
+					exitButton.setTexture(rl->BUTTON_EXIT_UP_tex);
+			}
+		}
 }
