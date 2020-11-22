@@ -12,5 +12,6 @@ void LevelData::setDefault()
 	currentLevel = 1;
 	combo = 0;
 	combo_mult = 0;
-	speed = 3;
+	speed = 7;
+	gameover = false;
 }

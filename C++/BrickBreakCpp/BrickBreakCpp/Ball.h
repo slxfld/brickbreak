@@ -10,14 +10,18 @@ class Ball : public GameObject
 	public:
 	double vx = 0;
 	double vy = 0;
+	double speed = 0;
 	bool active = false;
+	int iframe = 0;
 
-	Ball(RessourceLoader* rl);
+	Ball(RessourceLoader* rl, int speed);
 
 	void update();
 	void draw(sf::RenderWindow &window);
 
-	void setDefault();
+	void setDefault(int speed);
 	void calculateVX(sf::Vector2f v1, sf::Vector2f v2);
+	void deflectY();
+	void deflectX();
 };
 #endif

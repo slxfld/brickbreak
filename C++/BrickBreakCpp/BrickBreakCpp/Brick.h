@@ -8,11 +8,16 @@
 class Brick: public GameObject
 {
 	public:
+
+	int value = 0;
+	bool destroyed = false;
+
 	Brick();
 	Brick(int value, RessourceLoader *rl);
 
 	void draw(sf::RenderWindow& window);
 	void update();
+	void destroy();
 };
 
 #endif

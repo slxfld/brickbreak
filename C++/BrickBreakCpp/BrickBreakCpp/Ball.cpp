@@ -2,11 +2,11 @@
 #include "SFML/Graphics.hpp"
 
 
-Ball::Ball(RessourceLoader* rl)
+Ball::Ball(RessourceLoader* rl, int speed)
 {
 	Ball::rl = rl;
 	sprite.setTexture(rl->BALL_tex);
-	setDefault();
+	setDefault(speed);
 }
 
 void Ball::draw(sf::RenderWindow& window)
@@ -19,14 +19,28 @@ void Ball::update()
 
 }
 
-void Ball::setDefault()
+void Ball::setDefault(int speed)
 {
-	vx = 2;
-	vy = -2;
+	Ball::speed = speed;
+	sprite.setPosition(320, 400);
+	active = false;
+	vx = -2;
+	vy = -speed;
 }
 
 void Ball::calculateVX(sf::Vector2f v1, sf::Vector2f v2)
 {
-	vx = ((v1.x - v2.x)) / 10;
+	vx = (((v1.x - v2.x)) / 10);
+}
 
+void Ball::deflectX()
+{
+	vx = -vx;
+	iframe = 2;
+}
+
+void Ball::deflectY()
+{
+	vy = -vy;
+	iframe = 2;
 }

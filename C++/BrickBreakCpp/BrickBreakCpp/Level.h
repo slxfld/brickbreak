@@ -6,7 +6,7 @@
 #include "Brick.h"
 #include "Ball.h"
 #include "Paddle.h"
-
+#include "life.h"
 #pragma once
 class Level : GameObject
 {
@@ -16,20 +16,31 @@ class Level : GameObject
 	Ball* ball;
 	Paddle paddle;
 
-	bool gameover = false;
+	int bricksLeft = 0;
 	bool running = false;
-	int timeleft = 0;
+	int spawnTime = 0;
+
+	sf::Text scoreText;
+	sf::Text comboText;
+	sf::Text gameoverText;
+
+	Life *lives[3];
+
 
 	Level(RessourceLoader* rl);
 
-	void input(sf::Event& event);
+	void input(sf::Event& event, sf::RenderWindow &window);
 	void draw(sf::RenderWindow& window);
 	void update();
 
 	void collisions();
+	void next();
 	void start();
+	void restart();
 	void construct(int index);
 	void begin();
+	void lostLife();
+	bool checkWin();
 };
 #endif
 

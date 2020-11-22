@@ -40,7 +40,7 @@ int main()
             switch (state)
             {
             case MAIN_MENU:menu.input(event); break;
-            case LEVEL: level.input(event); break;
+            case LEVEL: level.input(event, window); break;
             }
 
             if (event.type == sf::Event::Closed)
@@ -53,8 +53,9 @@ int main()
             state = LEVEL;
             level.begin();
         }
-        if (level.gameover == true) {
+        if (level.leveldata.gameover == true) {
             state = MAIN_MENU;
+            level.running = false;
         }
         // Update
         switch (state)

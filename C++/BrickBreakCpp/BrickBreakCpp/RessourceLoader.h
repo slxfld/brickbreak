@@ -26,6 +26,9 @@ class RessourceLoader
 
 	sf::Texture BALL_tex;
 	sf::Texture PAD_tex;
+	sf::Texture LIFE_tex;
+
+	sf::Font font;
 
 	RessourceLoader();
 

@@ -21,9 +21,12 @@ void RessourceLoader::load()
 	BUTTON_DN_tex.loadFromFile(path + "buttondn.png");
 	BUTTON_UP_tex.loadFromFile(path + "buttonup.png");
 
-	PAD_tex.loadFromFile("./png/pad2.png");
-	BACKGROUND_tex.loadFromFile("./png/bg.png");
-	BALL_tex.loadFromFile("./png/ball.png");
+	PAD_tex.loadFromFile(path + "pad2.png");
+	BACKGROUND_tex.loadFromFile(path + "bg.png");
+	BALL_tex.loadFromFile(path + "ball.png");
+	LIFE_tex.loadFromFile(path + "life.png");
+
+	font.loadFromFile("./data/Chopsic.ttf");
 
 	std::cout << "<Ressource Loader> All Files Loaded!\n";
 }

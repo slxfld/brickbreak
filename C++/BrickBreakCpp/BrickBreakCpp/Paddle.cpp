@@ -10,7 +10,7 @@ Paddle::Paddle(RessourceLoader* rl)
 
 void Paddle::setDefault()
 {
-	sprite.setPosition(sf::Vector2f(320, 420));
+	sprite.setPosition(sf::Vector2f(320, 500));
 }
 
 void Paddle::update()

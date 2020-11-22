@@ -9,7 +9,7 @@ class GameObject
 
 	GameObject();
 
-	void setTexture(sf::Texture texture);
+	virtual void setTexture(sf::Texture texture);
 
 };
 
