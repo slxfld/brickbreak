@@ -1,14 +1,13 @@
 #ifndef _LEVEL_H_
 #define _LEVEL_H_
-#include "SFML/Graphics.hpp"
-#include "GameObject.h"
+#include "State.h"
 #include "LevelData.h"
 #include "Brick.h"
 #include "Ball.h"
 #include "Paddle.h"
 #include "life.h"
 #pragma once
-class Level : GameObject
+class Level : public State
 {
 	public:
 	LevelData leveldata;
@@ -29,7 +28,6 @@ class Level : GameObject
 	sf::RectangleShape comboBar;
 
 	Life *lives[3];
-
 
 	Level(RessourceLoader* rl);
 

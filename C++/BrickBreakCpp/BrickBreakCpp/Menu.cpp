@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "State.h"
 #include <iostream>
 
 Menu::Menu(RessourceLoader *rl)
@@ -27,19 +28,32 @@ void Menu::setupButtons(RessourceLoader *rl)
 
 void Menu::input(sf::Event& event)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		buttonSelectIndex = (buttonSelectIndex + 1 > 3) ? 1 : buttonSelectIndex + 1;
-		selecter.setPosition(sf::Vector2f(310, 252 + (buttonSelectIndex * 50)));
+		if (KEY_UP == false)
+		{
+			buttonSelectIndex = (buttonSelectIndex - 1 <= 0) ? 3 : buttonSelectIndex - 1;
+			selecter.setPosition(sf::Vector2f(310, 252 + (buttonSelectIndex * 50)));
+		}
+		KEY_UP = true;
 	}
+	else
+		KEY_UP = false;
 		
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		buttonSelectIndex = (buttonSelectIndex - 1 <= 0) ? 3 : buttonSelectIndex - 1;
-		selecter.setPosition(sf::Vector2f(310, 252 + (buttonSelectIndex * 50)));
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{ 
+		if (KEY_DOWN == false)
+		{
+			buttonSelectIndex = (buttonSelectIndex + 1 > 3) ? 1 : buttonSelectIndex + 1;
+			selecter.setPosition(sf::Vector2f(310, 252 + (buttonSelectIndex * 50)));
+			KEY_DOWN = true;
+		}
 	}
-		
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+	else
+		KEY_DOWN = false;
+	
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 	{
 		selecter.setPosition(sf::Vector2f(-900,-900));
 		switch (buttonSelectIndex)

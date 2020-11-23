@@ -23,7 +23,7 @@ Level::Level(RessourceLoader* rl) : paddle(rl), comboBar(sf::Vector2f(10,10))
 	comboText.setPosition(sf::Vector2f(20,50));
 
 	speedText.setFont(rl->font);
-	speedText.setScale(sf::Vector2f(1,1));
+	speedText.setScale(sf::Vector2f(0.8,0.8));
 
 	comboBar.setPosition(sf::Vector2f(5, 80));
 	comboBar.setFillColor(sf::Color::Green);

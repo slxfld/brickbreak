@@ -4,6 +4,7 @@
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 #include "Level.h"
+#include "Game.h"
 
 enum GAME_STATE
 {
@@ -20,11 +21,14 @@ int main()
 
     GAME_STATE state = MAIN_MENU;
 
+    Game game(&loader);
+
     Menu menu(&loader);
     Level level(&loader);
 
-    sf::RenderWindow window(sf::VideoMode(800, 640), "Breakout 70");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Breakout 70");
     window.setFramerateLimit(60);
+    window.setVerticalSyncEnabled(true);
 
     sf::Sprite background;
     background.setTexture(loader.BACKGROUND_tex);
@@ -35,14 +39,14 @@ int main()
         sf::Event event;
         while (window.pollEvent(event))
         {
-
             // Input
-            switch (state)
+            game.input(event, window);
+          /*  switch (state)
             {
-            case MAIN_MENU:menu.input(event); break;
-            case LEVEL: level.input(event, window); break;
+                case MAIN_MENU:menu.input(event); break;
+                case LEVEL: level.input(event, window); break;
             }
-
+            */
             if (event.type == sf::Event::Closed)
                 window.close();
         }
@@ -60,22 +64,26 @@ int main()
             state = MAIN_MENU;
             level.running = false;
         }
+
+        game.update();
+
         // Update
-        switch (state)
+        /*switch (state)
         {
             case MAIN_MENU:menu.update(); break;
             case LEVEL: level.update(); break;
         }
-
+        */
         window.clear();
         window.draw(background);
+        game.draw(window);
         // Render
-        switch (state)
+      /*  switch (state)
         {
             case MAIN_MENU: menu.draw(window); break;
             case LEVEL: level.draw(window); break;
         }
-
+        */
         window.display();
     }
 
