@@ -45,7 +45,8 @@ class Level : public State
 	void draw(sf::RenderWindow& window);
 	void update();
 
-	void collisions();
+	void createLives();
+
 	void next();
 	void addScore(int value);
 	void start();

@@ -8,7 +8,7 @@ Menu::Menu(RessourceLoader *rl)
 	std::cout << "<Menu> create\n";
 	setupButtons(rl);
 	selecter.setTexture(rl->SELECT_tex);
-	selecter.setPosition(sf::Vector2f(310, 252 + (buttonSelectIndex * 50)));
+	selecter.setPosition(sf::Vector2f(310, 256 + (buttonSelectIndex * 50)));
 }
 
 void Menu::setupButtons(RessourceLoader *rl)
