@@ -20,10 +20,20 @@ class Level : public State
 	bool selectSpeed = false;
 	int spawnTime = 0;
 
+	double comboTime = 100;
+	double comboExtraTime = 0;
+	double comboSize = 0;
+	int combo = 0;
+	int combo_R = 0;
+	int combo_G = 0;
+	int combo_B = 0;
+
 	sf::Text scoreText;
 	sf::Text comboText;
 	sf::Text gameoverText;
 	sf::Text speedText;
+
+
 
 	sf::RectangleShape comboBar;
 
