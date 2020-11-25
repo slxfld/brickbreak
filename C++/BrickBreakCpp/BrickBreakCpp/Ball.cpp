@@ -1,4 +1,5 @@
 #include "Ball.h"
+#include "Paddle.h"
 #include "SFML/Graphics.hpp"
 
 
@@ -14,9 +15,34 @@ void Ball::draw(sf::RenderWindow& window)
 	window.draw(sprite);
 }
 
+void Ball::collisions(Paddle* paddle)
+{
+	// Ball intersects Paddle
+	if (sprite.getGlobalBounds().intersects(paddle->sprite.getGlobalBounds()))
+	{
+		vx = (((sprite.getPosition().x + (sprite.getGlobalBounds().width / 2)) - (paddle->sprite.getPosition().x + paddle->sprite.getGlobalBounds().width / 2)) / 25) * (speed / 2);
+		vy = (vy > 0) ? -vy : vy;
+	}
+
+	// Ball outside up
+	if (sprite.getPosition().y <= 0)
+		vy = (vy < 0) ? -vy : vy;
+
+	// Ball outside left
+	if (sprite.getPosition().x <= 0)
+		vx = (vx < 0) ? -vx : vx;
+
+	// Ball outside right (x + width)
+	if ((sprite.getPosition().x + sprite.getGlobalBounds().width) >= 800)
+		vx = (vx > 0) ? -vx : vx;
+}
+
 void Ball::update()
 {
 
+
+	if (iframe > 0)
+		iframe--;
 }
 
 void Ball::setDefault(int speed)

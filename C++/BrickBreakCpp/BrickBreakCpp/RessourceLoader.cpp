@@ -37,7 +37,7 @@ void RessourceLoader::load()
 	BALL_tex.loadFromFile(path + "ball.png");
 	LIFE_tex.loadFromFile(path + "life.png");
 
-	font.loadFromFile("./data/Chopsic.ttf");
+	font.loadFromFile("./data/EnterTheGrid2.ttf");
 
 	std::cout << "<Ressource Loader> All Files Loaded!\n";
 }

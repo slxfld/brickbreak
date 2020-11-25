@@ -6,6 +6,7 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "life.h"
+#include "Combo.h"
 #pragma once
 class Level : public State
 {
@@ -13,27 +14,19 @@ class Level : public State
 	LevelData leveldata;
 	Brick* bricks[10][10];
 	Ball* ball;
-	Paddle paddle;
+	Paddle *paddle;
+	Combo combo;
 
 	int bricksLeft = 0;
 	bool running = false;
 	bool selectSpeed = false;
 	int spawnTime = 0;
 
-	double comboTime = 100;
-	double comboExtraTime = 0;
-	double comboSize = 0;
-	int combo = 0;
-	int combo_R = 0;
-	int combo_G = 0;
-	int combo_B = 0;
+
 
 	sf::Text scoreText;
-	sf::Text comboText;
 	sf::Text gameoverText;
 	sf::Text speedText;
-
-
 
 	sf::RectangleShape comboBar;
 

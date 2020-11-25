@@ -2,6 +2,7 @@
 #define _BALL_H_
 
 #include "GameObject.h"
+#include "Paddle.h"
 
 #pragma once
 class Ball : public GameObject
@@ -21,6 +22,7 @@ class Ball : public GameObject
 
 	void setDefault(int speed);
 	void calculateVX(sf::Vector2f v1, sf::Vector2f v2);
+	void collisions(Paddle* paddle);
 	void deflectY();
 	void deflectX();
 };
