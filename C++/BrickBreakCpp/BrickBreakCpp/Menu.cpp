@@ -58,9 +58,9 @@ void Menu::input(sf::Event& event)
 		selecter.setPosition(sf::Vector2f(-900,-900));
 		switch (buttonSelectIndex)
 		{
-		case 1: pressButton(0); break;
-		case 2: pressButton(1); break;
-		case 3: pressButton(2); break;
+			case 1: pressButton(0); break;
+			case 2: pressButton(1); break;
+			case 3: pressButton(2); break;
 		}
 	}
 }

@@ -6,13 +6,9 @@ Level::Level(RessourceLoader* rl) : combo(rl)
 	Level::rl = rl;
 	paddle = new Paddle(rl);
 
-	std::cout << "<Level> create\n";
-	for (int i = 0; i < 3; i++)
-		lives[i] = new Life(rl);
+	std::cout << "<Level> created\n";
 
-	lives[0]->sprite.setPosition(sf::Vector2f(650, 30));
-	lives[1]->sprite.setPosition(sf::Vector2f(680, 30));
-	lives[2]->sprite.setPosition(sf::Vector2f(710, 30));
+	createLives();
 
 	gameoverText.setFont(rl->font);
 	gameoverText.setPosition(sf::Vector2f(270,320));
@@ -32,18 +28,16 @@ void Level::input(sf::Event& event, sf::RenderWindow &window)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) == 1)
 		{
-			leveldata.speed-=0.1;
+			leveldata.speed -= 0.1;
 			speedText.setString("Select Speed: " + std::to_string(leveldata.speed));
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) == 1)
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) == 1)
 		{
-			leveldata.speed+=0.1;
+			leveldata.speed += 0.1;
 			speedText.setString("Select Speed: " + std::to_string(leveldata.speed));
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 		{
-			selectSpeed = false;
-			speedText.setPosition(sf::Vector2f(-500, -500));
 			begin();
 		}
 	}
@@ -66,7 +60,7 @@ void Level::input(sf::Event& event, sf::RenderWindow &window)
 
 void Level::draw(sf::RenderWindow& window)
 {
-	if (running)
+	if (selectSpeed == false)
 	{ 
 		paddle->draw(window);
 		ball->draw(window);
@@ -117,7 +111,9 @@ bool Level::checkWin()
 void Level::begin()
 {
 	ball = new Ball(rl, leveldata.speed);
-	construct(leveldata.currentLevel);
+	construct(leveldata.currentLevel);			
+	selectSpeed = false;
+	speedText.setPosition(sf::Vector2f(-500, -500));
 	restart();
 }
 
@@ -155,7 +151,7 @@ void Level::next()
 
 void Level::addScore(int value)
 {
-	leveldata.score += (value * leveldata.combo);
+	leveldata.score += (value * combo.combo);
 }
 
 void Level::update()
@@ -177,7 +173,7 @@ void Level::update()
 			for (int j = 0; j < 7; j++)
 				bricks[i][j]->update();
 
-		combo.update(leveldata);
+		combo.update();
 
 		ball->update();
 		ball->collisions(paddle);
@@ -194,10 +190,8 @@ void Level::update()
 					if (ball->iframe == 0 && !bricks[i][j]->destroyed)
 					{
 						std::cout << "Destroy Brick <" << j << "," << i << ">\n";
-						leveldata.combo += bricks[i][j]->value/100;
-						combo.comboTime += 50;
-						combo.comboSize = 0.3;
 
+						combo.addCombo(bricks[i][j]->value);
 						addScore(bricks[i][j]->value);
 						scoreText.setString("Score: " + std::to_string(leveldata.score));
 
@@ -214,10 +208,8 @@ void Level::update()
 					if (ball->iframe == 0 && !bricks[i][j]->destroyed)
 					{
 						std::cout << "Destroy Brick <" << j << "," << i << ">\n";
-						leveldata.combo += bricks[i][j]->value / 100;
-						combo.comboTime += 50;
-						combo.comboSize = 0.3;
 
+						combo.addCombo(bricks[i][j]->value);
 						addScore(bricks[i][j]->value);
 						scoreText.setString("Score: " + std::to_string(leveldata.score));
 
@@ -233,6 +225,11 @@ void Level::update()
 
 void Level::createLives()
 {
+	for (int i = 0; i < 3; i++)
+	{
+		lives[i] = new Life(rl);
+		lives[i]->sprite.setPosition(sf::Vector2f(650 + (i * 30), 30));
+	}
 }
 
 

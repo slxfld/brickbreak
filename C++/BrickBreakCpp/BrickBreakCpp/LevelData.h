@@ -8,8 +8,6 @@ class LevelData
 	int lives;
 	int score;
 	int currentLevel;
-	int combo;
-	double combo_mult;
 	double speed;
     bool gameover;
 

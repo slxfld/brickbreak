@@ -22,8 +22,6 @@ class Level : public State
 	bool selectSpeed = false;
 	int spawnTime = 0;
 
-
-
 	sf::Text scoreText;
 	sf::Text gameoverText;
 	sf::Text speedText;
@@ -39,7 +37,6 @@ class Level : public State
 	void update();
 
 	void createLives();
-
 	void next();
 	void addScore(int value);
 	void start();

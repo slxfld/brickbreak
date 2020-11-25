@@ -11,6 +11,7 @@ class Paddle : public GameObject
 	bool move_right = false;
 	Paddle(RessourceLoader *rl);
 
+	void input(sf::Event& event);
 	void draw(sf::RenderWindow &window);
 	void update();
 	void setDefault();

@@ -21,7 +21,9 @@ class Combo : public GameObject
 
 	Combo(RessourceLoader *rl);
 
-	void update(LevelData &leveldata);
+	void update();
 	void draw(sf::RenderWindow& window);
+
+	void addCombo(int value);
 };
 #endif

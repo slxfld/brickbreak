@@ -21,6 +21,10 @@ void Paddle::update()
 		sprite.move(-5, 0);
 }
 
+void Paddle::input(sf::Event& event)
+{
+}
+
 void Paddle::draw(sf::RenderWindow &window)
 {
 	window.draw(sprite);

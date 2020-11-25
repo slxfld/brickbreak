@@ -11,9 +11,9 @@ Combo::Combo(RessourceLoader* rl)
 	comboBar.setFillColor(sf::Color::Green);
 }
 
-void Combo::update(LevelData &leveldata)
+void Combo::update()
 {
-	text.setString("Combo: " + std::to_string((int)leveldata.combo) + "x");
+	text.setString("Combo: " + std::to_string((int)combo) + "x");
 	comboBar.setSize(sf::Vector2f(comboTime, 10));
 
 	if (comboTime > 0)
@@ -24,7 +24,7 @@ void Combo::update(LevelData &leveldata)
 			comboSize -= 0.025;
 
 		if (comboTime == 0)
-			leveldata.combo = 0;
+			combo = 0;
 	}
 }
 
@@ -36,4 +36,11 @@ void Combo::draw(sf::RenderWindow& window)
 		window.draw(text);
 		window.draw(comboBar);
 	}
+}
+
+void Combo::addCombo(int value)
+{
+	combo += (value / 100);
+	comboTime += 50;
+	comboSize = 0.3;
 }
