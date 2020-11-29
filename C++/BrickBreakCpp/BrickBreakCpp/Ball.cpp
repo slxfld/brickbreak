@@ -3,11 +3,12 @@
 #include "SFML/Graphics.hpp"
 
 
-Ball::Ball(RessourceLoader* rl, int speed)
+Ball::Ball(RessourceLoader* rl)
 {
 	Ball::rl = rl;
+	speed = 5;
 	sprite.setTexture(rl->BALL_tex);
-	setDefault(speed);
+	setDefault();
 }
 
 void Ball::draw(sf::RenderWindow& window)
@@ -15,7 +16,7 @@ void Ball::draw(sf::RenderWindow& window)
 	window.draw(sprite);
 }
 
-void Ball::collisions(Paddle* paddle)
+void Ball::checkPaddleCollision(Paddle* paddle)
 {
 	// Ball intersects Paddle
 	if (sprite.getGlobalBounds().intersects(paddle->sprite.getGlobalBounds()))
@@ -39,15 +40,12 @@ void Ball::collisions(Paddle* paddle)
 
 void Ball::update()
 {
-
-
 	if (iframe > 0)
 		iframe--;
 }
 
-void Ball::setDefault(int speed)
+void Ball::setDefault()
 {
-	Ball::speed = speed;
 	sprite.setPosition(400, 400);
 	active = false;
 	vx = -2;
@@ -62,11 +60,16 @@ void Ball::calculateVX(sf::Vector2f v1, sf::Vector2f v2)
 void Ball::deflectX()
 {
 	vx = -vx;
-	iframe = 2;
+	resetIframes();
 }
 
 void Ball::deflectY()
 {
 	vy = -vy;
-	iframe = 2;
+	resetIframes();
+}
+
+void Ball::resetIframes()
+{
+	iframe = 3;
 }

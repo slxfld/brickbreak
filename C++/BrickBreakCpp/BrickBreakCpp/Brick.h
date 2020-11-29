@@ -11,8 +11,9 @@ class Brick: public GameObject
 
 	int value = 0;
 	bool destroyed = false;
+	int bAlpha = 255;
 
-	int vy = 0;
+	double vy = 0;
 	int falltime = 0;
 
 	Brick();

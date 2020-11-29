@@ -9,7 +9,6 @@ void LevelData::setDefault()
 {
 	lives = 3;
 	score = 0;
-	currentLevel = 1;
-	speed = 5;
+	currentLevel = 0;
 	gameover = false;
 }

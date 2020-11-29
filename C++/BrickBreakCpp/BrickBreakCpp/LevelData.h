@@ -8,7 +8,6 @@ class LevelData
 	int lives;
 	int score;
 	int currentLevel;
-	double speed;
     bool gameover;
 
     int levelLayout[10][10][7] =

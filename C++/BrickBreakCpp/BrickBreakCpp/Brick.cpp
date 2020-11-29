@@ -12,6 +12,7 @@ Brick::Brick(int value, RessourceLoader *rl)
 		case 5: sprite.setTexture(rl->BRICK_1_Y1_tex);	Brick::value = 500; break;
 		case 6: sprite.setTexture(rl->BRICK_1_GR1_tex);	Brick::value = 600; break;
 	}
+
 	sprite.setScale(1.1,1.17);
 	sprite.setPosition(-500, -500);
 }
@@ -21,9 +22,11 @@ void Brick::update()
 	if (falltime > 0)
 	{
 		falltime--;
-		sprite.move(sf::Vector2f(0.1,vy));
-		sprite.rotate(7);
-		vy += 2;
+		sprite.move(sf::Vector2f(0,vy));
+		sprite.rotate(5);
+		sprite.setColor(sf::Color(255,255,255,bAlpha));
+		bAlpha = (bAlpha > 0) ? bAlpha - 5 : bAlpha;
+		vy++;
 	}
 }
 

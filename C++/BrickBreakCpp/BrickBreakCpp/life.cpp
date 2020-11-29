@@ -12,5 +12,5 @@ void Life::update()
 
 void Life::draw(sf::RenderWindow& window)
 {
-	window.draw(sprite);
+	if(alive) window.draw(sprite);
 }

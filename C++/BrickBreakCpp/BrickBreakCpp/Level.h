@@ -7,6 +7,7 @@
 #include "Paddle.h"
 #include "life.h"
 #include "Combo.h"
+#include <list>
 #pragma once
 class Level : public State
 {
@@ -15,10 +16,11 @@ class Level : public State
 	Brick* bricks[10][10];
 	Ball* ball;
 	Paddle *paddle;
-	Combo combo;
+	Combo *combo;
+	std::list<GameObject*> gameobjects;
 
 	int bricksLeft = 0;
-	bool running = false;
+	bool isRunning = false;
 	bool selectSpeed = false;
 	int spawnTime = 0;
 
@@ -36,15 +38,18 @@ class Level : public State
 	void draw(sf::RenderWindow& window);
 	void update();
 
-	void createLives();
-	void next();
+	bool ballCollision();
 	void addScore(int value);
-	void start();
-	void restart();
+	void restartLevel();
+
 	void construct(int index);
+	void createLives();
+
 	void begin();
-	void lostLife();
+	void start();
+	void nextLevel();
 	bool checkWin();
+	void loseLife();
 };
 #endif
 
