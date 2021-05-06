@@ -74,8 +74,13 @@ void Level::input(sf::Event& event, sf::RenderWindow &window)
 		
 		if (event.type == sf::Event::MouseMoved)
 		{
-			paddle->sprite.setPosition(sf::Mouse::getPosition(window).x -
-				(paddle->sprite.getGlobalBounds().width / 2), 500);
+			double window_width = window.getSize().x;
+
+			double mouseX = ((double)sf::Mouse::getPosition(window).x / (double)window_width) * 800;
+
+			paddle->sprite.setPosition(mouseX - (paddle->sprite.getGlobalBounds().width / 2), 500);
+
+			std::cout << "mouse x=" << mouseX << " screen X=" << window_width << "\n";
 		}
 	}
 }
@@ -121,6 +126,31 @@ void Level::update()
 	}
 }
 
+bool Level::checkBallBrickCollision()
+{
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 7; j++)
+		{
+			if (ball->sprite.getGlobalBounds().intersects(bricks[i][j]->sprite.getGlobalBounds()))
+			{
+				if (ball->iframe == 0 && !bricks[i][j]->destroyed)
+				{
+					std::cout << "Destroy Brick <" << j << "," << i << ">\n";
+
+					combo->addCombo(bricks[i][j]->value);
+					addScore(bricks[i][j]->value);
+					scoreText.setString("Score: " + std::to_string(leveldata.score));
+
+					bricksLeft--;
+					bricks[i][j]->destroy();
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
 bool Level::checkWin()
 {
 	return (bricksLeft == 0);
@@ -207,32 +237,6 @@ void Level::nextLevel()
 void Level::addScore(int value)
 {
 	leveldata.score += (value * combo->combo);
-}
-
-bool Level::checkBallBrickCollision()
-{
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 7; j++)
-		{
-			if (ball->sprite.getGlobalBounds().intersects(bricks[i][j]->sprite.getGlobalBounds()))
-			{
-				if (ball->iframe == 0 && !bricks[i][j]->destroyed)
-				{
-					std::cout << "Destroy Brick <" << j << "," << i << ">\n";
-
-					combo->addCombo(bricks[i][j]->value);
-					addScore(bricks[i][j]->value);
-					scoreText.setString("Score: " + std::to_string(leveldata.score));
-
-					bricksLeft--;
-					bricks[i][j]->destroy();
-					return true;
-				}
-			}
-		}
-	}
-	return false;
 }
 
 void Level::createLives()

@@ -7,7 +7,6 @@
 #pragma once
 class Ball : public GameObject
 {
-
 	public:
 	double vx = 0;
 	double vy = 0;
