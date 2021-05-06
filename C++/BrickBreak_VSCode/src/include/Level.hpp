@@ -21,12 +21,14 @@ class Level : public State
 
 	int bricksLeft = 0;
 	bool isRunning = false;
+	bool isPaused = false;
 	bool selectingSpeed = false;
 	int spawnTimer = 0;
 
 	sf::Text scoreText;
 	sf::Text gameoverText;
 	sf::Text speedText;
+	sf::Text pausedText;
 
 	sf::RectangleShape comboBar;
 

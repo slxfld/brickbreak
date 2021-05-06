@@ -47,6 +47,7 @@ void Ball::update()
 void Ball::setDefault()
 {
 	sprite.setPosition(400, 400);
+	onPaddle = true;
 	active = false;
 	vx = -2;
 	vy = -speed;

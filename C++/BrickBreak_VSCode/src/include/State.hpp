@@ -9,11 +9,13 @@ public:
 	RessourceLoader* rl;
 
 	State();
-	
+
 	bool KEY_LEFT = false;
 	bool KEY_RIGHT = false;
 	bool KEY_UP = false;
 	bool KEY_DOWN = false;
+
+	bool KEY_P = false;
 
 	virtual void input(sf::Event &event, sf::RenderWindow &window);
 	virtual void update();

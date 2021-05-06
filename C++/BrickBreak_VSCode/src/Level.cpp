@@ -21,6 +21,10 @@ Level::Level(RessourceLoader* rl)
 
 	speedText.setFont(rl->font);
 	speedText.setScale(sf::Vector2f(0.8,0.8));
+
+	pausedText.setFont(rl->font);
+	pausedText.setPosition(sf::Vector2f(300,300));
+	pausedText.setString("Game Paused");
 }
 
 void Level::input(sf::Event& event, sf::RenderWindow &window)
@@ -32,7 +36,7 @@ void Level::input(sf::Event& event, sf::RenderWindow &window)
 			if (!KEY_LEFT)
 			{
 				KEY_LEFT = true;
-				ball->speed -= 0.1;
+				ball->speed--;
 			}
 		}
 		else
@@ -40,13 +44,12 @@ void Level::input(sf::Event& event, sf::RenderWindow &window)
 			KEY_LEFT = false;
 		}
 
-
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
 			if (!KEY_RIGHT)
 			{
 				KEY_RIGHT = true;
-				ball->speed += 0.1;
+				ball->speed++;
 			}
 		}
 		else
@@ -54,7 +57,7 @@ void Level::input(sf::Event& event, sf::RenderWindow &window)
 			KEY_RIGHT = false;
 		}
 
-		speedText.setString("Select Speed: " + std::to_string(ball->speed));
+		speedText.setString("Select Speed\n" + std::to_string(ball->speed));
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 		{
@@ -64,14 +67,33 @@ void Level::input(sf::Event& event, sf::RenderWindow &window)
 	}
 	else
 	{
-		paddle->move_left = (sf::Keyboard::isKeyPressed(sf::Keyboard::A));
-		paddle->move_right = (sf::Keyboard::isKeyPressed(sf::Keyboard::D));
-		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		{
 			leveldata.gameover = true;
 		}
-		
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+		{
+			if (!KEY_P)
+			{
+				KEY_P = true;
+				isPaused = (isPaused) ? false : true;
+				std::cout << "paused: " << isPaused << "\n";
+			}
+		}
+		else
+		{
+			KEY_P = false;
+		}
+
+		if (!isRunning)
+		{
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+			{
+				isRunning = true;
+			}
+		}
+
 		if (event.type == sf::Event::MouseMoved)
 		{
 			double window_width = window.getSize().x;
@@ -85,40 +107,48 @@ void Level::input(sf::Event& event, sf::RenderWindow &window)
 void Level::draw(sf::RenderWindow& window)
 {
 	if (selectingSpeed == false)
+	{
 		for (auto i : gameobjects)
 			i->draw(window);
+		combo->draw(window);
 
+		if (isPaused)
+		{
+			window.draw(pausedText);
+		}
+	}
 	window.draw(scoreText);
 	window.draw(gameoverText);
 	window.draw(speedText);
-	combo->draw(window);
 }
 
 void Level::update()
 {
 	if (isRunning)
 	{
-		for (auto i : gameobjects)
-			i->update();
+		if (!isPaused)
+		{
+			for (auto i : gameobjects)
+				i->update();
 
-		ball->checkPaddleCollision(paddle);
+			ball->checkPaddleCollision(paddle);
 
-		if (ball->isLost()) { loseLife(); }
+			if (ball->isLost()) { loseLife(); }
 
-		ball->sprite.move(ball->vx, 0);
-		if (checkBallBrickCollision()) { ball->deflectX(); }
+			ball->sprite.move(ball->vx, 0);
+			if (checkBallBrickCollision()) { ball->deflectX(); }
 
-		ball->sprite.move(0, ball->vy);
-		if (checkBallBrickCollision()) { ball->deflectY(); }
+			ball->sprite.move(0, ball->vy);
+			if (checkBallBrickCollision()) { ball->deflectY(); }
 
-		if (checkWin()) { nextLevel(); }
+			if (checkWin()) { nextLevel(); }
+		}
 	}
 	else
 	{
-		if (spawnTimer > 0)
+		if (ball->onPaddle)
 		{
-			spawnTimer--;
-			if (spawnTimer <= 0) { start(); }
+			ball->sprite.setPosition(paddle->sprite.getPosition() + sf::Vector2f(paddle->sprite.getGlobalBounds().width/2, -20));
 		}
 	}
 }

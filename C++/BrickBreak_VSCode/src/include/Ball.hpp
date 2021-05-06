@@ -10,8 +10,9 @@ class Ball : public GameObject
 	public:
 	double vx = 0;
 	double vy = 0;
-	double speed = 0;
+	int speed = 0;
 	bool active = false;
+	bool onPaddle = false;
 	int iframe = 0;
 
 	Ball(RessourceLoader* rl);
