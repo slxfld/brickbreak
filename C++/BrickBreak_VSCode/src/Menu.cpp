@@ -26,35 +26,9 @@ void Menu::setupButtons(RessourceLoader *rl)
 		buttonTime[i] = 0;
 }
 
-void Menu::input(sf::Event& event)
+void Menu::input(sf::Event& event, sf::RenderWindow &window)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		if (KEY_UP == false)
-		{
-			buttonSelectIndex = (buttonSelectIndex - 1 <= 0) ? 3 : buttonSelectIndex - 1;
-			selecter.setPosition(sf::Vector2f(310, 252 + (buttonSelectIndex * 50)));
-		}
-		KEY_UP = true;
-	}
-	else
-	{
-		KEY_UP = false;
-	}
-		
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{ 
-		if (KEY_DOWN == false)
-		{
-			buttonSelectIndex = (buttonSelectIndex + 1 > 3) ? 1 : buttonSelectIndex + 1;
-			selecter.setPosition(sf::Vector2f(310, 252 + (buttonSelectIndex * 50)));
-			KEY_DOWN = true;
-		}
-	}
-	else
-	{
-		KEY_DOWN = false;
-	}
+
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 	{
@@ -66,7 +40,53 @@ void Menu::input(sf::Event& event)
 			case 3: pressButton(2); break;
 		}
 	}
+	
+	if (event.type == sf::Event::MouseMoved)
+	{
+		double window_width = window.getSize().x;
+		double window_height = window.getSize().y;
+		
+		double real_mouse_x = ((double)sf::Mouse::getPosition(window).x / (double)window_width) * 800;
+		double real_mouse_y = (((double)sf::Mouse::getPosition(window).y / (double)window_height) * 640) - 20;
+
+		if (startButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
+		{
+			selecter.setPosition(sf::Vector2f(310, 252 + (1 * 50)));
+		}
+		if (optionsButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
+		{
+			selecter.setPosition(sf::Vector2f(310, 252 + (2 * 50)));
+		}
+		if (exitButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)))
+		{
+			selecter.setPosition(sf::Vector2f(310, 252 + (3 * 50)));
+		}
+	}
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+	{
+		double window_width = window.getSize().x;
+		double window_height = window.getSize().y;
+		
+		double real_mouse_x = ((double)sf::Mouse::getPosition(window).x / (double)window_width) * 800;
+		double real_mouse_y = (((double)sf::Mouse::getPosition(window).y / (double)window_height) * 640) - 20;
+
+		if (startButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
+		{
+			pressButton(0);
+		}
+		if (optionsButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
+		{
+			pressButton(1);
+		}
+		if (exitButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)))
+		{
+			pressButton(2);
+		}
+	}
 }
+
+
 
 void Menu::pressButton(int index)
 {

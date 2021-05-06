@@ -21,7 +21,7 @@ class Menu : public State
 
 	Menu(RessourceLoader *rl);
 
-	void input(sf::Event& event);
+	void input(sf::Event& event, sf::RenderWindow &window);
 	void pressButton(int index);
 	void update();
 	void draw(sf::RenderWindow& window);

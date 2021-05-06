@@ -75,12 +75,9 @@ void Level::input(sf::Event& event, sf::RenderWindow &window)
 		if (event.type == sf::Event::MouseMoved)
 		{
 			double window_width = window.getSize().x;
-
 			double mouseX = ((double)sf::Mouse::getPosition(window).x / (double)window_width) * 800;
 
 			paddle->sprite.setPosition(mouseX - (paddle->sprite.getGlobalBounds().width / 2), 500);
-
-			std::cout << "mouse x=" << mouseX << " screen X=" << window_width << "\n";
 		}
 	}
 }

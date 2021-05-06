@@ -11,7 +11,7 @@ void Game::input(sf::Event& event, sf::RenderWindow& window)
 	if (state == LEVEL)
 		levelState.input(event, window);
 	else if (state == MENU)
-		menuState.input(event);
+		menuState.input(event, window);
 }
 
 void Game::update()
