@@ -21,8 +21,8 @@ class Level : public State
 
 	int bricksLeft = 0;
 	bool isRunning = false;
-	bool selectSpeed = false;
-	int spawnTime = 0;
+	bool selectingSpeed = false;
+	int spawnTimer = 0;
 
 	sf::Text scoreText;
 	sf::Text gameoverText;
@@ -38,9 +38,9 @@ class Level : public State
 	void draw(sf::RenderWindow& window);
 	void update();
 
-	bool ballCollision();
-	void addScore(int value);
-	void restartLevel();
+	bool checkBallBrickCollision();	// no
+	void addScore(int value);	//no
+	void restartLevel();	
 
 	void construct(int index);
 	void createLives();

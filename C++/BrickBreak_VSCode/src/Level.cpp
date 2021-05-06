@@ -25,14 +25,42 @@ Level::Level(RessourceLoader* rl)
 
 void Level::input(sf::Event& event, sf::RenderWindow &window)
 {
-	if (selectSpeed)
+	if (selectingSpeed)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { ball->speed -= 0.1; }
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { ball->speed += 0.1; }
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			if (!KEY_LEFT)
+			{
+				KEY_LEFT = true;
+				ball->speed -= 0.1;
+			}
+		}
+		else
+		{
+			KEY_LEFT = false;
+		}
+
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			if (!KEY_RIGHT)
+			{
+				KEY_RIGHT = true;
+				ball->speed += 0.1;
+			}
+		}
+		else
+		{
+			KEY_RIGHT = false;
+		}
 
 		speedText.setString("Select Speed: " + std::to_string(ball->speed));
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) { selectSpeed = false; begin(); }
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		{
+			selectingSpeed = false;
+			begin();
+		}
 	}
 	else
 	{
@@ -54,15 +82,48 @@ void Level::input(sf::Event& event, sf::RenderWindow &window)
 
 void Level::draw(sf::RenderWindow& window)
 {
-	if (selectSpeed == false)
+	if (selectingSpeed == false)
 		for (auto i : gameobjects)
 			i->draw(window);
-
 
 	window.draw(scoreText);
 	window.draw(gameoverText);
 	window.draw(speedText);
 	combo->draw(window);
+}
+
+void Level::update()
+{
+	if (isRunning)
+	{
+		for (auto i : gameobjects)
+			i->update();
+
+		ball->checkPaddleCollision(paddle);
+
+		if (ball->isLost()) { loseLife(); }
+
+		ball->sprite.move(ball->vx, 0);
+		if (checkBallBrickCollision()) { ball->deflectX(); }
+
+		ball->sprite.move(0, ball->vy);
+		if (checkBallBrickCollision()) { ball->deflectY(); }
+
+		if (checkWin()) { nextLevel(); }
+	}
+	else
+	{
+		if (spawnTimer > 0)
+		{
+			spawnTimer--;
+			if (spawnTimer <= 0) { start(); }
+		}
+	}
+}
+
+bool Level::checkWin()
+{
+	return (bricksLeft == 0);
 }
 
 void Level::start()
@@ -91,13 +152,6 @@ void Level::construct(int index)
 	}
 }
 
-bool Level::checkWin()
-{
-	if (bricksLeft == 0)
-		return true;
-	return false;
-}
-
 void Level::begin()
 {
 	leveldata.setDefault();
@@ -111,8 +165,8 @@ void Level::begin()
 void Level::restartLevel()
 {
 	isRunning = false;
-	spawnTime = 90;
-	std::cout << "time set to " << spawnTime << "\n";
+	spawnTimer = 90;
+	std::cout << "time set to " << spawnTimer << "\n";
 
 	paddle->setDefault();
 	ball->setDefault();
@@ -155,34 +209,7 @@ void Level::addScore(int value)
 	leveldata.score += (value * combo->combo);
 }
 
-void Level::update()
-{
-	if (spawnTime > 0)
-	{
-		spawnTime--;
-		if (spawnTime <= 0) { start(); }
-	}
-
-	if (isRunning)
-	{
-		for (auto i : gameobjects)
-			i->update();
-
-		ball->checkPaddleCollision(paddle);
-
-		if (ball->isLost()) { loseLife(); }
-
-		ball->sprite.move(ball->vx, 0);
-		if (ballCollision()) { ball->deflectX(); }
-
-		ball->sprite.move(0, ball->vy);
-		if (ballCollision()) { ball->deflectY(); }
-
-		if (checkWin()) { nextLevel(); }
-	}
-}
-
-bool Level::ballCollision()
+bool Level::checkBallBrickCollision()
 {
 	for (int i = 0; i < 10; i++)
 	{

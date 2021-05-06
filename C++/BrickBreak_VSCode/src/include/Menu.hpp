@@ -14,11 +14,6 @@ class Menu : public State
 	sf::Sprite exitButton;
 	sf::Sprite selecter;
 
-	bool KEY_LEFT = false;
-	bool KEY_RIGHT = false;
-	bool KEY_UP = false;
-	bool KEY_DOWN = false;
-
 	int buttonTime[3];
 
 	int buttonSelectIndex = 1;

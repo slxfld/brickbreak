@@ -38,7 +38,9 @@ void Menu::input(sf::Event& event)
 		KEY_UP = true;
 	}
 	else
+	{
 		KEY_UP = false;
+	}
 		
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{ 
@@ -50,8 +52,9 @@ void Menu::input(sf::Event& event)
 		}
 	}
 	else
+	{
 		KEY_DOWN = false;
-	
+	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 	{

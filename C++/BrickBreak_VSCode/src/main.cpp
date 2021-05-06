@@ -28,19 +28,16 @@ int main()
         {
             game.input(event, window);
 
-            if (event.type == sf::Event::Closed)
-                window.close();
+            if (event.type == sf::Event::Closed)    window.close();
         }
-
-        game.update();
 
         window.clear();
 
         window.draw(background);
+        game.update();
         game.draw(window);
 
         window.display();
     }
-
     return 0;
 }

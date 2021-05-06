@@ -20,7 +20,7 @@ void Game::update()
 	{
 		menuState.enterGame = false;
 		changeState(LEVEL);
-		levelState.selectSpeed = true;
+		levelState.selectingSpeed = true;
 		levelState.speedText.setPosition(sf::Vector2f(300, 400));
 		levelState.speedText.setString("Select Speed: " + std::to_string(levelState.ball->speed));
 		levelState.leveldata.setDefault();
