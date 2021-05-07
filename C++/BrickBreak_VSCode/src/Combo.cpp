@@ -19,28 +19,28 @@ void Combo::update()
 	if (comboTime > 0)
 	{
 		comboTime--;
-
-		if (comboSize > 0)
-			comboSize -= 0.025;
-
-		if (comboTime == 0)
+		if (comboTime == 0) {
 			combo = 0;
+		}
 	}
+
+	if (comboSize > 0)
+		comboSize -= 0.025;
 }
 
 void Combo::draw(sf::RenderWindow& window)
 {
-	if (comboTime > 0)
+	if (combo > 0)
 	{
 		text.setScale(sf::Vector2f(0.7 + (comboSize), 0.7 + (comboSize)));
 		window.draw(text);
-		window.draw(comboBar);
+		//window.draw(comboBar);
 	}
 }
 
 void Combo::addCombo(int value)
 {
-	combo += (value / 100);
-	comboTime += 50;
+	combo++;
+	comboTime = 100;
 	comboSize = 0.3;
 }

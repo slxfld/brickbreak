@@ -30,6 +30,10 @@ void RessourceLoader::load()
 	BUTTON_EXIT_DN_tex.loadFromFile(path + "buttonEXITdn.png");
 	BUTTON_EXIT_UP_tex.loadFromFile(path + "buttonEXITup.png");
 
+	BUTTON_OPTIONS_tex.loadFromFile(path + "buttonOptions.png");
+	BUTTON_EXIT_tex.loadFromFile(path + "buttonExit.png");
+	BUTTON_START_tex.loadFromFile(path + "buttonStart.png");
+
 	SELECT_tex.loadFromFile(path + "select.png");
 
 	PAD_tex.loadFromFile(path + "pad2.png");

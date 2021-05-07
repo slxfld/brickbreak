@@ -13,13 +13,13 @@ Menu::Menu(RessourceLoader *rl)
 
 void Menu::setupButtons(RessourceLoader *rl)
 {
-	startButton.setTexture(rl->BUTTON_PLAY_UP_tex);
+	startButton.setTexture(rl->BUTTON_START_tex);
 	startButton.setPosition(sf::Vector2f(400 - (startButton.getGlobalBounds().width  / 2), 300));
 
-	optionsButton.setTexture(rl->BUTTON_OPTIONS_UP_tex);
+	optionsButton.setTexture(rl->BUTTON_OPTIONS_tex);
 	optionsButton.setPosition(sf::Vector2f(400 - (optionsButton.getGlobalBounds().width / 2), 350));
 
-	exitButton.setTexture(rl->BUTTON_EXIT_UP_tex);
+	exitButton.setTexture(rl->BUTTON_EXIT_tex);
 	exitButton.setPosition(sf::Vector2f(400 - (exitButton.getGlobalBounds().width / 2), 400));
 
 	for (int i = 0; i < 3; i++)
@@ -28,7 +28,6 @@ void Menu::setupButtons(RessourceLoader *rl)
 
 void Menu::input(sf::Event& event, sf::RenderWindow &window)
 {
-
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 	{
@@ -51,15 +50,15 @@ void Menu::input(sf::Event& event, sf::RenderWindow &window)
 
 		if (startButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
 		{
-			selecter.setPosition(sf::Vector2f(310, 252 + (1 * 50)));
+			selecter.setPosition(sf::Vector2f(310, 255 + (1 * 50)));
 		}
 		if (optionsButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
 		{
-			selecter.setPosition(sf::Vector2f(310, 252 + (2 * 50)));
+			selecter.setPosition(sf::Vector2f(310, 255 + (2 * 50)));
 		}
 		if (exitButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)))
 		{
-			selecter.setPosition(sf::Vector2f(310, 252 + (3 * 50)));
+			selecter.setPosition(sf::Vector2f(310, 255 + (3 * 50)));
 		}
 	}
 
@@ -95,16 +94,13 @@ void Menu::pressButton(int index)
 	{
 		case 0:
 			buttonTime[0] = 30;
-			startButton.setTexture(rl->BUTTON_PLAY_DN_tex);
 		break;
 		case 1:
 			buttonTime[1] = 30;
-			optionsButton.setTexture(rl->BUTTON_OPTIONS_DN_tex);
-			break;
+		break;
 		case 2:
 			buttonTime[2] = 30;
-			exitButton.setTexture(rl->BUTTON_EXIT_DN_tex);
-			break;
+		break;
 	}
 }
 
@@ -120,6 +116,7 @@ void Menu::draw(sf::RenderWindow &window)
 void Menu::update()
 {
 	for (int i = 0; i < 3; i++)
+	{
 		if (buttonTime[i] > 0)
 		{
 			buttonTime[i]--;
@@ -127,13 +124,9 @@ void Menu::update()
 			{
 				if (i == 0)
 				{
-					startButton.setTexture(rl->BUTTON_PLAY_UP_tex);
 					enterGame = true;
 				}
-				else if (i == 1)
-					optionsButton.setTexture(rl->BUTTON_OPTIONS_UP_tex);
-				else if (i == 2)
-					exitButton.setTexture(rl->BUTTON_EXIT_UP_tex);
 			}
 		}
+	}
 }

@@ -28,11 +28,11 @@ void Ball::checkPaddleCollision(Paddle* paddle)
 	// Ball outside up
 	if (sprite.getPosition().y <= 0)
 		vy = (vy < 0) ? -vy : vy;
-
+	
 	// Ball outside left
 	if (sprite.getPosition().x <= 0)
 		vx = (vx < 0) ? -vx : vx;
-
+	
 	// Ball outside right (x + width)
 	if ((sprite.getPosition().x + sprite.getGlobalBounds().width) >= 800)
 		vx = (vx > 0) ? -vx : vx;

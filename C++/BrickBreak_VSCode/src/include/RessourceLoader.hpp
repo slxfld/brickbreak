@@ -30,6 +30,10 @@ class RessourceLoader
 	sf::Texture BUTTON_EXIT_UP_tex;
 	sf::Texture SELECT_tex;
 
+	sf::Texture BUTTON_START_tex;
+	sf::Texture BUTTON_OPTIONS_tex;
+	sf::Texture BUTTON_EXIT_tex;
+
 	sf::Texture MENU_BACKGROUND_tex;
 
 	sf::Texture BALL_tex;

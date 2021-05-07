@@ -13,7 +13,7 @@ Brick::Brick(int value, RessourceLoader *rl)
 		case 6: sprite.setTexture(rl->BRICK_1_GR1_tex);	Brick::value = 600; break;
 	}
 
-	sprite.setScale(1.1,1.17);
+	sprite.setScale(1,1.17);
 	sprite.setPosition(-500, -500);
 }
 

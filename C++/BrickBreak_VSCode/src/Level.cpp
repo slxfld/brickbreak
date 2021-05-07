@@ -69,6 +69,7 @@ void Level::input(sf::Event& event, sf::RenderWindow &window)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		{
+			leveldata.setDefault();
 			leveldata.gameover = true;
 		}
 
@@ -131,15 +132,7 @@ void Level::update()
 			for (auto i : gameobjects)
 				i->update();
 
-			ball->checkPaddleCollision(paddle);
-
-			if (ball->isLost()) { loseLife(); }
-
-			ball->sprite.move(ball->vx, 0);
-			if (checkBallBrickCollision()) { ball->deflectX(); }
-
-			ball->sprite.move(0, ball->vy);
-			if (checkBallBrickCollision()) { ball->deflectY(); }
+			collisions();
 
 			if (checkWin()) { nextLevel(); }
 		}
@@ -153,11 +146,24 @@ void Level::update()
 	}
 }
 
+void Level::collisions()
+{
+	ball->checkPaddleCollision(paddle);
+
+	if (ball->isLost()) { loseLife(); }
+
+	ball->sprite.move(ball->vx, 0);
+	if (checkBallBrickCollision()) { ball->deflectX(); }
+
+	ball->sprite.move(0, ball->vy);
+	if (checkBallBrickCollision()) { ball->deflectY(); }
+}
+
 bool Level::checkBallBrickCollision()
 {
 	for (int i = 0; i < 10; i++)
 	{
-		for (int j = 0; j < 7; j++)
+		for (int j = 0; j < 8; j++)
 		{
 			if (ball->sprite.getGlobalBounds().intersects(bricks[i][j]->sprite.getGlobalBounds()))
 			{
@@ -193,7 +199,7 @@ void Level::construct(int index)
 	bricksLeft = 0;
 	for (int i = 0; i < 10; i++)
 	{
-		for (int j = 0; j < 7; j++)
+		for (int j = 0; j < 8; j++)
 		{
 			std::cout << "level = " << index << "\n";
 			std::cout << "create brick type " << leveldata.levelLayout[index][i][j] << " \n";
@@ -201,7 +207,7 @@ void Level::construct(int index)
 			
 			if (bricks[i][j]->value != 0)
 			{
-				bricks[i][j]->sprite.setPosition(sf::Vector2f(70 + (j * 93), 20 + (i * 35)));
+				bricks[i][j]->sprite.setPosition(sf::Vector2f(60 + (j * 85), 20 + (i * 32)));
 				bricksLeft++;
 				gameobjects.push_back(bricks[i][j]);
 			}
@@ -214,6 +220,7 @@ void Level::begin()
 	leveldata.setDefault();
 	for (int i = 0; i < 3; i++) lives[i]->alive = true;
 
+	gameoverText.setString("");
 	speedText.setPosition(sf::Vector2f(-500, -500));
 	nextLevel();
 	restartLevel();

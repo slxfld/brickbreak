@@ -40,6 +40,7 @@ class Level : public State
 	void draw(sf::RenderWindow& window);
 	void update();
 
+	void collisions();
 	bool checkBallBrickCollision();	// no
 	void addScore(int value);	//no
 	void restartLevel();	
