@@ -1,10 +1,6 @@
 #include "main.hpp"
-#include "Menu.hpp"
-#include "RessourceLoader.hpp"
-#include "SFML/Window.hpp"
-#include "SFML/Graphics.hpp"
-#include "Level.hpp"
-#include "Game.hpp"
+
+RessourceLoader* Access::rl = new RessourceLoader();
 
 int main()
 {
@@ -12,13 +8,12 @@ int main()
     window.setFramerateLimit(70);
     window.setVerticalSyncEnabled(true);
 
-    RessourceLoader loader;
-    loader.load();
+    Access::rl->load();
 
-    Game game(&loader);
+    Game game;
 
     sf::Sprite background;
-    background.setTexture(loader.BACKGROUND_tex);
+    background.setTexture(Access::rl->BACKGROUND_tex);
     background.setScale(sf::Vector2f(1.4,1.4));
 
     while (window.isOpen())
