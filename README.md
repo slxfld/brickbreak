@@ -17,4 +17,4 @@ requires MinGW g++ & Make
 GPLv3
 
 # Author
-*Simon Lixenfeld 2020*
+*Simon Lixenfeld 2021*
