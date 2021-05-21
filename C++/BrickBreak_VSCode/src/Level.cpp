@@ -27,6 +27,7 @@ Level::Level(RessourceLoader* rl)
 	pausedText.setString("Game Paused");
 }
 
+
 void Level::input(sf::Event& event, sf::RenderWindow &window)
 {
 	if (selectingSpeed)
@@ -79,7 +80,7 @@ void Level::input(sf::Event& event, sf::RenderWindow &window)
 			{
 				KEY_P = true;
 				isPaused = (isPaused) ? false : true;
-				std::cout << "paused: " << isPaused << "\n";
+				if(LOGGING_ENABLED) std::cout << "paused: " << isPaused << "\n";
 			}
 		}
 		else
@@ -129,8 +130,14 @@ void Level::update()
 	{
 		if (!isPaused)
 		{
-			for (auto i : gameobjects)
+			for (auto i : gameobjects) {
 				i->update();
+				if (i->delete_me)
+				{
+					gameobjects.remove(i);
+					delete(i);
+				}
+			}
 
 			collisions();
 
@@ -169,14 +176,16 @@ bool Level::checkBallBrickCollision()
 			{
 				if (ball->iframe == 0 && !bricks[i][j]->destroyed)
 				{
-					std::cout << "Destroy Brick <" << j << "," << i << ">\n";
+					if (LOGGING_ENABLED) std::cout << "Destroy Brick <" << j << "," << i << ">\n";
 
 					combo->addCombo(bricks[i][j]->value);
 					addScore(bricks[i][j]->value);
 					scoreText.setString("Score: " + std::to_string(leveldata.score));
-
+					gameobjects.push_back(new FadingScore(bricks[i][j]->sprite.getPosition(),(bricks[i][j]->value * combo->combo),rl));
 					bricksLeft--;
 					bricks[i][j]->destroy();
+
+
 					return true;
 				}
 			}
@@ -201,8 +210,8 @@ void Level::construct(int index)
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			std::cout << "level = " << index << "\n";
-			std::cout << "create brick type " << leveldata.levelLayout[index][i][j] << " \n";
+			if(LOGGING_ENABLED) std::cout << "level = " << index << "\n";
+			if(LOGGING_ENABLED) std::cout << "create brick type " << leveldata.levelLayout[index][i][j] << " \n";
 			bricks[i][j] = new Brick(leveldata.levelLayout[index][i][j], rl);
 			
 			if (bricks[i][j]->value != 0)
@@ -230,7 +239,7 @@ void Level::restartLevel()
 {
 	isRunning = false;
 	spawnTimer = 90;
-	std::cout << "time set to " << spawnTimer << "\n";
+	if(LOGGING_ENABLED) std::cout << "time set to " << spawnTimer << "\n";
 
 	paddle->setDefault();
 	ball->setDefault();

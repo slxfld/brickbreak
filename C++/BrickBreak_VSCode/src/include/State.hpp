@@ -10,6 +10,8 @@ public:
 
 	State();
 
+	bool LOGGING_ENABLED = false;
+
 	bool KEY_LEFT = false;
 	bool KEY_RIGHT = false;
 	bool KEY_UP = false;

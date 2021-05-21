@@ -6,6 +6,7 @@ class GameObject
 	public:
 	sf::Sprite sprite;
 	RessourceLoader* rl;
+	bool delete_me = false;
 
 	GameObject();
 

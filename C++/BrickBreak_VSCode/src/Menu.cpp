@@ -5,7 +5,7 @@
 Menu::Menu(RessourceLoader *rl)
 {
 	Menu::rl = rl;
-	std::cout << "<Menu> create\n";
+	std::cout << "<Menu> created\n";
 	setupButtons(rl);
 	selecter.setTexture(rl->SELECT_tex);
 	selecter.setPosition(sf::Vector2f(310, 256 + (buttonSelectIndex * 50)));
@@ -52,11 +52,11 @@ void Menu::input(sf::Event& event, sf::RenderWindow &window)
 		{
 			selecter.setPosition(sf::Vector2f(310, 255 + (1 * 50)));
 		}
-		if (optionsButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
+		else if (optionsButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
 		{
 			selecter.setPosition(sf::Vector2f(310, 255 + (2 * 50)));
 		}
-		if (exitButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)))
+		else if (exitButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)))
 		{
 			selecter.setPosition(sf::Vector2f(310, 255 + (3 * 50)));
 		}
@@ -74,11 +74,11 @@ void Menu::input(sf::Event& event, sf::RenderWindow &window)
 		{
 			pressButton(0);
 		}
-		if (optionsButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
+		else if (optionsButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
 		{
 			pressButton(1);
 		}
-		if (exitButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)))
+		else if (exitButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)))
 		{
 			pressButton(2);
 		}
@@ -93,7 +93,7 @@ void Menu::pressButton(int index)
 	switch (index)
 	{
 		case 0:
-			buttonTime[0] = 30;
+			enterGame = true;
 		break;
 		case 1:
 			buttonTime[1] = 30;
@@ -115,18 +115,4 @@ void Menu::draw(sf::RenderWindow &window)
 
 void Menu::update()
 {
-	for (int i = 0; i < 3; i++)
-	{
-		if (buttonTime[i] > 0)
-		{
-			buttonTime[i]--;
-			if (buttonTime[i] == 0)
-			{
-				if (i == 0)
-				{
-					enterGame = true;
-				}
-			}
-		}
-	}
 }

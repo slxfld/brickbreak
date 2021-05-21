@@ -8,7 +8,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Breakout 70");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "BrickBreak");
     window.setFramerateLimit(70);
     window.setVerticalSyncEnabled(true);
 

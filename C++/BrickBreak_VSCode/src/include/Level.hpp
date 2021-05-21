@@ -7,6 +7,7 @@
 #include "Paddle.hpp"
 #include "life.hpp"
 #include "Combo.hpp"
+#include "FadingScore.hpp"
 #include <list>
 #pragma once
 class Level : public State
