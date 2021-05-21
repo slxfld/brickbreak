@@ -1,9 +1,7 @@
 #ifndef _BRICK_H_
 #define _BRICK_H_
-
 #include <SFML/Graphics.hpp>
 #include "GameObject.hpp"
-#include "RessourceLoader.hpp"
 #pragma once
 class Brick: public GameObject
 {
@@ -17,7 +15,7 @@ class Brick: public GameObject
 	int falltime = 0;
 
 	Brick();
-	Brick(int value, RessourceLoader *rl);
+	Brick(int value);
 
 	void draw(sf::RenderWindow& window);
 	void update();

@@ -7,7 +7,7 @@ class PreLevel : public State
 {
 public:
 
-	PreLevel(RessourceLoader* rl);
+	PreLevel();
 
 	void input(sf::Event& event, sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);

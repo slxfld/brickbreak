@@ -1,7 +1,6 @@
 #ifndef _COMBO_H_
 #define _COMBO_H_
 #include "GameObject.hpp"
-#include "RessourceLoader.hpp"
 #include "LevelData.hpp"
 #pragma once
 class Combo : public GameObject
@@ -19,7 +18,7 @@ class Combo : public GameObject
 	int combo_G = 0;
 	int combo_B = 0;
 
-	Combo(RessourceLoader *rl);
+	Combo();
 
 	void update();
 	void draw(sf::RenderWindow& window);

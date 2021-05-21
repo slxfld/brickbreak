@@ -1,8 +1,7 @@
 #include "Game.hpp"
 
-Game::Game(RessourceLoader* rl) : levelState(rl), menuState(rl)
+Game::Game()
 {
-	activeState.rl = rl;
 	changeState(MENU);
 }
 
@@ -22,18 +21,23 @@ void Game::update()
 		changeState(LEVEL);
 		levelState.selectingSpeed = true;
 		levelState.speedText.setPosition(sf::Vector2f(300, 400));
-		levelState.speedText.setString("Select Speed: " + std::to_string(levelState.ball->speed));
+		levelState.speedText.setString("Select Speed: " + std::to_string(levelState.ball.speed));
 		levelState.leveldata.setDefault();
 	}
 	if (levelState.leveldata.gameover == true) {
 		changeState(MENU);
 		levelState.isRunning = false;
 	}
-
-	if (state == LEVEL)
-		levelState.update();
-	else if (state == MENU)
-		menuState.update();
+	
+	switch(state)
+	{
+		case LEVEL:
+			levelState.update();
+		break;
+		case MENU:
+			menuState.update();
+		break;
+	}
 }
 
 void Game::draw(sf::RenderWindow& window)

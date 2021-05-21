@@ -8,16 +8,17 @@
 #include "life.hpp"
 #include "Combo.hpp"
 #include "FadingScore.hpp"
+#include "Access.hpp"
 #include <list>
 #pragma once
 class Level : public State
 {
 	public:
 	LevelData leveldata;
-	Brick* bricks[10][10];
-	Ball* ball;
-	Paddle *paddle;
-	Combo *combo;
+	Brick bricks[10][10];
+	Ball ball;
+	Paddle paddle;
+	Combo combo;
 	std::list<GameObject*> gameobjects;
 
 	int bricksLeft = 0;
@@ -33,9 +34,9 @@ class Level : public State
 
 	sf::RectangleShape comboBar;
 
-	Life *lives[3];
+	Life lives[3];
 
-	Level(RessourceLoader* rl);
+	Level();
 
 	void input(sf::Event& event, sf::RenderWindow &window);
 	void draw(sf::RenderWindow& window);

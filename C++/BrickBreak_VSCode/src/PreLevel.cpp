@@ -1,6 +1,6 @@
 #include "PreLevel.hpp"
 
-PreLevel::PreLevel(RessourceLoader* rl)
+PreLevel::PreLevel()
 {
 }
 

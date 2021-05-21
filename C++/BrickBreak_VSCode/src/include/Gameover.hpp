@@ -5,6 +5,6 @@
 class Gameover : public State
 {
 	public:
-    Gameover(RessourceLoader* rl);
+    Gameover();
 };
 #endif

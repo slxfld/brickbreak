@@ -2,12 +2,11 @@
 #include "Paddle.hpp"
 #include "SFML/Graphics.hpp"
 
-
-Ball::Ball(RessourceLoader* rl)
+Ball::Ball()
 {
-	Ball::rl = rl;
+	std::cout << "ball constructor called!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
 	speed = 5;
-	sprite.setTexture(rl->BALL_tex);
+	sprite.setTexture(Access::rl->BALL_tex);
 	setDefault();
 }
 
@@ -16,12 +15,12 @@ void Ball::draw(sf::RenderWindow& window)
 	window.draw(sprite);
 }
 
-void Ball::checkPaddleCollision(Paddle* paddle)
+void Ball::checkPaddleCollision(Paddle &paddle)
 {
 	// Ball intersects Paddle
-	if (sprite.getGlobalBounds().intersects(paddle->sprite.getGlobalBounds()))
+	if (sprite.getGlobalBounds().intersects(paddle.sprite.getGlobalBounds()))
 	{
-		vx = (((sprite.getPosition().x + (sprite.getGlobalBounds().width / 2)) - (paddle->sprite.getPosition().x + paddle->sprite.getGlobalBounds().width / 2)) / 25) * (speed / 2);
+		vx = (((sprite.getPosition().x + (sprite.getGlobalBounds().width / 2)) - (paddle.sprite.getPosition().x + paddle.sprite.getGlobalBounds().width / 2)) / 25) * (speed / 2);
 		vy = (vy > 0) ? -vy : vy;
 	}
 

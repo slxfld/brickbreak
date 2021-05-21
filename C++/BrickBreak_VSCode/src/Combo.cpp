@@ -1,8 +1,8 @@
 #include "Combo.hpp"
 
-Combo::Combo(RessourceLoader* rl)
+Combo::Combo()
 {
-	text.setFont(rl->font);
+	text.setFont(Access::rl->font);
 	text.setScale(sf::Vector2f(0.7, 0.7));
 	text.setPosition(sf::Vector2f(20, 50));
 

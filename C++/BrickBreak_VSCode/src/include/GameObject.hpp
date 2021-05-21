@@ -1,11 +1,10 @@
 #include "SFML/Graphics.hpp"
-#include "RessourceLoader.hpp"
+#include "Access.hpp"
 #pragma once
 class GameObject
 {
 	public:
 	sf::Sprite sprite;
-	RessourceLoader* rl;
 	bool delete_me = false;
 
 	GameObject();

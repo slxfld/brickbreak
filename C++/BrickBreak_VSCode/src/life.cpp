@@ -1,8 +1,8 @@
-#include "life.hpp"
+#include "Life.hpp"
 
-Life::Life(RessourceLoader *rl)
+Life::Life()
 {
-	sprite.setTexture(rl->LIFE_tex);
+	sprite.setTexture(Access::rl->LIFE_tex);
 }
 
 void Life::update()

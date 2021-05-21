@@ -8,8 +8,7 @@ public:
 
 	bool isUsed = false;
 	int despawnCounter = 0;
-
-	Pickup(RessourceLoader *rl);
+	Pickup();
 
 	void draw(sf::RenderWindow& window);
 	void update();

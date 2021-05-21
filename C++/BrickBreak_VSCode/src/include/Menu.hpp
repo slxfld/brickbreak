@@ -2,7 +2,6 @@
 #define _MENU_H_
 #include <iostream>
 #include "GameObject.hpp"
-#include "RessourceLoader.hpp"
 #include "State.hpp"
 #pragma once
 class Menu : public State
@@ -14,18 +13,14 @@ class Menu : public State
 	sf::Sprite exitButton;
 	sf::Sprite selecter;
 
-	int buttonTime[3];
-
 	int buttonSelectIndex = 1;
 	bool enterGame = false;
-
-	Menu(RessourceLoader *rl);
+	Menu();
 
 	void input(sf::Event& event, sf::RenderWindow &window);
-	void pressButton(int index);
 	void update();
 	void draw(sf::RenderWindow& window);
-	void setupButtons(RessourceLoader *rl);
+	void setupButtons();
 };
 
 #endif

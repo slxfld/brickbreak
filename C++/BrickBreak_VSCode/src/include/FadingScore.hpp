@@ -11,7 +11,7 @@ public:
 	double velocity;
 
 	FadingScore();
-	FadingScore(sf::Vector2f position, int score, RessourceLoader *rl);
+	FadingScore(sf::Vector2f position, int score);
 
 	void draw(sf::RenderWindow& window);
 	void update();

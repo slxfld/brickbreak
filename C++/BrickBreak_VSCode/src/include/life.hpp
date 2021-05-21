@@ -7,8 +7,7 @@ class Life : public GameObject
 public:
 
 	bool alive = true;
-
-	Life(RessourceLoader *rl);
+	Life();
 
 	void draw(sf::RenderWindow& window);
 	void update();

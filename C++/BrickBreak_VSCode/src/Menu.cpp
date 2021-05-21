@@ -2,44 +2,28 @@
 #include "State.hpp"
 #include <iostream>
 
-Menu::Menu(RessourceLoader *rl)
+Menu::Menu()
 {
-	Menu::rl = rl;
 	std::cout << "<Menu> created\n";
-	setupButtons(rl);
-	selecter.setTexture(rl->SELECT_tex);
+	setupButtons();
+	selecter.setTexture(Access::rl->SELECT_tex);
 	selecter.setPosition(sf::Vector2f(310, 256 + (buttonSelectIndex * 50)));
 }
 
-void Menu::setupButtons(RessourceLoader *rl)
+void Menu::setupButtons()
 {
-	startButton.setTexture(rl->BUTTON_START_tex);
+	startButton.setTexture(Access::rl->BUTTON_START_tex);
 	startButton.setPosition(sf::Vector2f(400 - (startButton.getGlobalBounds().width  / 2), 300));
 
-	optionsButton.setTexture(rl->BUTTON_OPTIONS_tex);
+	optionsButton.setTexture(Access::rl->BUTTON_OPTIONS_tex);
 	optionsButton.setPosition(sf::Vector2f(400 - (optionsButton.getGlobalBounds().width / 2), 350));
 
-	exitButton.setTexture(rl->BUTTON_EXIT_tex);
+	exitButton.setTexture(Access::rl->BUTTON_EXIT_tex);
 	exitButton.setPosition(sf::Vector2f(400 - (exitButton.getGlobalBounds().width / 2), 400));
-
-	for (int i = 0; i < 3; i++)
-		buttonTime[i] = 0;
 }
 
 void Menu::input(sf::Event& event, sf::RenderWindow &window)
-{
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-	{
-		selecter.setPosition(sf::Vector2f(-900,-900));
-		switch (buttonSelectIndex)
-		{
-			case 1: pressButton(0); break;
-			case 2: pressButton(1); break;
-			case 3: pressButton(2); break;
-		}
-	}
-	
+{	
 	if (event.type == sf::Event::MouseMoved)
 	{
 		double window_width = window.getSize().x;
@@ -72,35 +56,16 @@ void Menu::input(sf::Event& event, sf::RenderWindow &window)
 
 		if (startButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
 		{
-			pressButton(0);
+			enterGame = true;
 		}
 		else if (optionsButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
 		{
-			pressButton(1);
+			
 		}
 		else if (exitButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)))
 		{
-			pressButton(2);
+			window.close();
 		}
-	}
-}
-
-
-
-void Menu::pressButton(int index)
-{
-	selecter.setPosition(sf::Vector2f(-200, -200));
-	switch (index)
-	{
-		case 0:
-			enterGame = true;
-		break;
-		case 1:
-			buttonTime[1] = 30;
-		break;
-		case 2:
-			buttonTime[2] = 30;
-		break;
 	}
 }
 

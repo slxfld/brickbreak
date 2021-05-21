@@ -20,7 +20,7 @@ public:
 	State activeState;
 	GAME_STATE state;
 
-	Game(RessourceLoader* rl);
+	Game();
 
 	 void input(sf::Event& event, sf::RenderWindow& window);
 	 void update();

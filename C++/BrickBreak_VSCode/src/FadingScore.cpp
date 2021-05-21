@@ -1,8 +1,8 @@
 #include "FadingScore.hpp"
 
-FadingScore::FadingScore(sf::Vector2f position, int score ,RessourceLoader *rl)
+FadingScore::FadingScore(sf::Vector2f position, int score)
 {
-	text.setFont(rl->font);
+	text.setFont(Access::rl->font);
 	text.setString("+" + std::to_string(score));
 	text.setPosition(position);
 

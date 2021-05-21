@@ -1,8 +1,8 @@
 #include "Paddle.hpp"
 
-Paddle::Paddle(RessourceLoader* rl)
+Paddle::Paddle()
 {
-	sprite.setTexture(rl->PAD_tex);
+	sprite.setTexture(Access::rl->PAD_tex);
 	sprite.setScale(sf::Vector2f(1,1.14));
 	sprite.setPosition(sf::Vector2f(-40 + 640 / 2, 640 - 50));
 	setDefault();

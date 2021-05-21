@@ -15,14 +15,14 @@ class Ball : public GameObject
 	bool onPaddle = false;
 	int iframe = 0;
 
-	Ball(RessourceLoader* rl);
+	Ball();
 
 	void update();
 	void draw(sf::RenderWindow &window);
 
 	void setDefault();
 	void calculateVX(sf::Vector2f v1, sf::Vector2f v2);
-	void checkPaddleCollision(Paddle* paddle);
+	void checkPaddleCollision(Paddle &paddle);
 	void deflectY();
 	void deflectX();
 	void resetIframes();
