@@ -22,15 +22,15 @@ void Menu::setupButtons()
 	exitButton.setPosition(sf::Vector2f(400 - (exitButton.getGlobalBounds().width / 2), 400));
 }
 
-void Menu::input(sf::Event& event, sf::RenderWindow &window)
+void Menu::input(sf::Event& event)
 {	
 	if (event.type == sf::Event::MouseMoved)
 	{
-		double window_width = window.getSize().x;
-		double window_height = window.getSize().y;
+		double window_width = Access::window->getSize().x;
+		double window_height = Access::window->getSize().y;
 		
-		double real_mouse_x = ((double)sf::Mouse::getPosition(window).x / (double)window_width) * 800;
-		double real_mouse_y = (((double)sf::Mouse::getPosition(window).y / (double)window_height) * 640) - 20;
+		double real_mouse_x = ((double)sf::Mouse::getPosition(*Access::window).x / (double)window_width) * 800;
+		double real_mouse_y = (((double)sf::Mouse::getPosition(*Access::window).y / (double)window_height) * 640) - 20;
 
 		if (startButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
 		{
@@ -48,11 +48,11 @@ void Menu::input(sf::Event& event, sf::RenderWindow &window)
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
-		double window_width = window.getSize().x;
-		double window_height = window.getSize().y;
+		double window_width = Access::window->getSize().x;
+		double window_height = Access::window->getSize().y;
 		
-		double real_mouse_x = ((double)sf::Mouse::getPosition(window).x / (double)window_width) * 800;
-		double real_mouse_y = (((double)sf::Mouse::getPosition(window).y / (double)window_height) * 640) - 20;
+		double real_mouse_x = ((double)sf::Mouse::getPosition(*Access::window).x / (double)window_width) * 800;
+		double real_mouse_y = (((double)sf::Mouse::getPosition(*Access::window).y / (double)window_height) * 640) - 20;
 
 		if (startButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
 		{
@@ -64,18 +64,18 @@ void Menu::input(sf::Event& event, sf::RenderWindow &window)
 		}
 		else if (exitButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)))
 		{
-			window.close();
+			Access::window->close();
 		}
 	}
 }
 
-void Menu::draw(sf::RenderWindow &window)
+void Menu::draw()
 {
-	window.draw(startButton);
-	window.draw(optionsButton);
-	window.draw(scoreButton);
-	window.draw(exitButton);
-	window.draw(selecter);
+	Access::window->draw(startButton);
+	Access::window->draw(optionsButton);
+	Access::window->draw(scoreButton);
+	Access::window->draw(exitButton);
+	Access::window->draw(selecter);
 }
 
 void Menu::update()

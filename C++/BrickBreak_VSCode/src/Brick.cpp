@@ -35,9 +35,9 @@ void Brick::update()
 	}
 }
 
-void Brick::draw(sf::RenderWindow& window)
+void Brick::draw()
 {
-	window.draw(sprite);
+	Access::window->draw(sprite);
 }
 
 void Brick::destroy()

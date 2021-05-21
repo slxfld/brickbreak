@@ -10,9 +10,9 @@ Ball::Ball()
 	setDefault();
 }
 
-void Ball::draw(sf::RenderWindow& window)
+void Ball::draw()
 {
-	window.draw(sprite);
+	Access::window->draw(sprite);
 }
 
 void Ball::checkPaddleCollision(Paddle &paddle)

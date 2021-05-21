@@ -17,7 +17,7 @@ class Brick: public GameObject
 	Brick();
 	Brick(int value);
 
-	void draw(sf::RenderWindow& window);
+	void draw();
 	void update();
 	void destroy();
 };

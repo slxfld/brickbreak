@@ -18,7 +18,7 @@ class Ball : public GameObject
 	Ball();
 
 	void update();
-	void draw(sf::RenderWindow &window);
+	void draw();
 
 	void setDefault();
 	void calculateVX(sf::Vector2f v1, sf::Vector2f v2);

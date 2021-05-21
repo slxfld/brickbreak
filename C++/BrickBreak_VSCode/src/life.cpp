@@ -10,7 +10,7 @@ void Life::update()
 
 }
 
-void Life::draw(sf::RenderWindow& window)
+void Life::draw()
 {
-	if(alive) window.draw(sprite);
+	if(alive) Access::window->draw(sprite);
 }

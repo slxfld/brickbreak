@@ -16,9 +16,9 @@ public:
 
 	bool KEY_P = false;
 
-	virtual void input(sf::Event &event, sf::RenderWindow &window);
+	virtual void input(sf::Event &event);
 	virtual void update();
-	virtual void draw(sf::RenderWindow& window);
+	virtual void draw();
 };
 #endif
 

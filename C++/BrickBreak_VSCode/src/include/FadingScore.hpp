@@ -13,7 +13,7 @@ public:
 	FadingScore();
 	FadingScore(sf::Vector2f position, int score);
 
-	void draw(sf::RenderWindow& window);
+	void draw();
 	void update();
 };
 

@@ -25,7 +25,7 @@ void Paddle::input(sf::Event& event)
 {
 }
 
-void Paddle::draw(sf::RenderWindow &window)
+void Paddle::draw()
 {
-	window.draw(sprite);
+	Access::window->draw(sprite);
 }

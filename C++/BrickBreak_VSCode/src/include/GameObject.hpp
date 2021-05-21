@@ -10,7 +10,7 @@ class GameObject
 	GameObject();
 
 	virtual void setTexture(sf::Texture texture);
-	virtual void draw(sf::RenderWindow& window);
+	virtual void draw();
 	virtual void update();
 };
 

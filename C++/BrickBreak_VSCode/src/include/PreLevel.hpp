@@ -9,8 +9,8 @@ public:
 
 	PreLevel();
 
-	void input(sf::Event& event, sf::RenderWindow& window);
-	void draw(sf::RenderWindow& window);
+	void input(sf::Event& event);
+	void draw();
 	void update();
 };
 

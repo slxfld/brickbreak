@@ -17,9 +17,9 @@ class Menu : public State
 	bool enterGame = false;
 	Menu();
 
-	void input(sf::Event& event, sf::RenderWindow &window);
+	void input(sf::Event& event);
 	void update();
-	void draw(sf::RenderWindow& window);
+	void draw();
 	void setupButtons();
 };
 

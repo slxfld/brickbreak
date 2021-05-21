@@ -12,7 +12,7 @@ class Paddle : public GameObject
 	Paddle();
 
 	void input(sf::Event& event);
-	void draw(sf::RenderWindow &window);
+	void draw();
 	void update();
 	void setDefault();
 };

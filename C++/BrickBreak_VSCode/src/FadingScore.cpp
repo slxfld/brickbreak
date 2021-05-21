@@ -19,7 +19,7 @@ void FadingScore::update()
 		delete_me = true;
 }
 
-void FadingScore::draw(sf::RenderWindow& window)
+void FadingScore::draw()
 {
-	if(velocity > 0) window.draw(text);
+	if(velocity > 0) Access::window->draw(text);
 }

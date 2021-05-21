@@ -3,6 +3,7 @@
 #include "Level.hpp"
 #include "Menu.hpp"
 #include "State.hpp"
+#include "Access.hpp"
 #pragma once
 class Game
 {
@@ -22,9 +23,9 @@ public:
 
 	Game();
 
-	 void input(sf::Event& event, sf::RenderWindow& window);
+	 void input(sf::Event& event);
 	 void update();
-	 void draw(sf::RenderWindow& window);
+	 void draw();
 
 	 void changeState(GAME_STATE state);
 };

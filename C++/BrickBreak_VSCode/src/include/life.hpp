@@ -9,7 +9,7 @@ public:
 	bool alive = true;
 	Life();
 
-	void draw(sf::RenderWindow& window);
+	void draw();
 	void update();
 };
 

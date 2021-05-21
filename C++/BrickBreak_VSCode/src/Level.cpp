@@ -23,7 +23,7 @@ Level::Level()
 }
 
 
-void Level::input(sf::Event& event, sf::RenderWindow &window)
+void Level::input(sf::Event& event)
 {
 	if (selectingSpeed)
 	{
@@ -93,30 +93,31 @@ void Level::input(sf::Event& event, sf::RenderWindow &window)
 
 		if (event.type == sf::Event::MouseMoved)
 		{
-			double window_width = window.getSize().x;
-			double mouseX = ((double)sf::Mouse::getPosition(window).x / (double)window_width) * 800;
+			double window_width = Access::window->getSize().x;
+
+			double mouseX = ((double)sf::Mouse::getPosition(*Access::window).x / (double)window_width) * 800;
 
 			paddle.sprite.setPosition(mouseX - (paddle.sprite.getGlobalBounds().width / 2), 500);
 		}
 	}
 }
 
-void Level::draw(sf::RenderWindow& window)
+void Level::draw()
 {
 	if (selectingSpeed == false)
 	{
 		for (auto i : gameobjects)
-			i->draw(window);
-		combo.draw(window);
+			i->draw();
+		combo.draw();
 
 		if (isPaused)
 		{
-			window.draw(pausedText);
+			Access::window->draw(pausedText);
 		}
 	}
-	window.draw(scoreText);
-	window.draw(gameoverText);
-	window.draw(speedText);
+	Access::window->draw(scoreText);
+	Access::window->draw(gameoverText);
+	Access::window->draw(speedText);
 }
 
 void Level::update()

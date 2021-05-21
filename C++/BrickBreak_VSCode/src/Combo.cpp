@@ -28,13 +28,13 @@ void Combo::update()
 		comboSize -= 0.025;
 }
 
-void Combo::draw(sf::RenderWindow& window)
+void Combo::draw()
 {
 	if (combo > 0)
 	{
 		text.setScale(sf::Vector2f(0.7 + (comboSize), 0.7 + (comboSize)));
-		window.draw(text);
-		//window.draw(comboBar);
+		Access::window->draw(text);
+		//Access::window->draw(comboBar);
 	}
 }
 

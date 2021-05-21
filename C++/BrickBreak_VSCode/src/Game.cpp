@@ -5,12 +5,12 @@ Game::Game()
 	changeState(MENU);
 }
 
-void Game::input(sf::Event& event, sf::RenderWindow& window)
+void Game::input(sf::Event& event)
 {
 	if (state == LEVEL)
-		levelState.input(event, window);
+		levelState.input(event);
 	else if (state == MENU)
-		menuState.input(event, window);
+		menuState.input(event);
 }
 
 void Game::update()
@@ -40,12 +40,12 @@ void Game::update()
 	}
 }
 
-void Game::draw(sf::RenderWindow& window)
+void Game::draw()
 {
 	if (state == LEVEL)
-		levelState.draw(window);
+		levelState.draw();
 	else if (state == MENU)
-		menuState.draw(window);
+		menuState.draw();
 }
 
 void Game::changeState(GAME_STATE state)

@@ -10,7 +10,7 @@ public:
 	int despawnCounter = 0;
 	Pickup();
 
-	void draw(sf::RenderWindow& window);
+	void draw();
 	void update();
 };
 
