@@ -12,7 +12,7 @@ void RessourceLoader::load()
 	std::cout << "<Ressource Loader> Loading Files..\n";
 	BRICK_1_G1_tex.loadFromFile(path + "brick01g1.png");
 	BRICK_1_B1_tex.loadFromFile(path + "brick01b1.png");
-	BRICK_1_GR1_tex.loadFromFile(path + "brick01b1.png");
+	BRICK_1_GR1_tex.loadFromFile(path + "brick01gr1.png");
 	BRICK_1_O1_tex.loadFromFile(path + "brick01o1.png");
 	BRICK_1_R1_tex.loadFromFile(path + "brick01r1.png");
 	BRICK_1_V1_tex.loadFromFile(path + "brick01v1.png");

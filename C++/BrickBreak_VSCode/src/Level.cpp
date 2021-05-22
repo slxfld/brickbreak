@@ -179,9 +179,13 @@ bool Level::checkBallBrickCollision()
 					addScore(bricks[i][j].value);
 					scoreText.setString("Score: " + std::to_string(leveldata.score));
 					gameobjects.push_back(new FadingScore(bricks[i][j].sprite.getPosition(),(bricks[i][j].value * combo.combo)));
-					bricksLeft--;
-					bricks[i][j].destroy();
-
+					
+					// Gray Bricks cannot be destroyed
+					if (bricks[i][j].value != 0)
+					{
+						bricksLeft--;
+						bricks[i][j].destroy();
+					}
 
 					return true;
 				}
@@ -210,11 +214,15 @@ void Level::construct(int index)
 			if(LOGGING_ENABLED) std::cout << "level = " << index << "\n";
 			if(LOGGING_ENABLED) std::cout << "create brick type " << leveldata.levelLayout[index][i][j] << " \n";
 			bricks[i][j] = Brick(leveldata.levelLayout[index][i][j]);
-			
-			if (bricks[i][j].value != 0)
+
+			if (leveldata.levelLayout[index][i][j] != -1)
 			{
 				bricks[i][j].sprite.setPosition(sf::Vector2f(60 + (j * 85), 20 + (i * 32)));
-				bricksLeft++;
+				// Is not a Gray Brick
+				if (bricks[i][j].value != 0)
+				{
+					bricksLeft++;
+				}
 				gameobjects.push_back(&bricks[i][j]);
 			}
 		}

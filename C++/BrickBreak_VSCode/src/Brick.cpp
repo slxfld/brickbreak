@@ -15,7 +15,7 @@ Brick::Brick(int value)
 		case 3: sprite.setTexture(Access::rl->BRICK_1_R1_tex);	Brick::value = 300; break;
 		case 4: sprite.setTexture(Access::rl->BRICK_1_V1_tex);	Brick::value = 400; break;
 		case 5: sprite.setTexture(Access::rl->BRICK_1_Y1_tex);	Brick::value = 500; break;
-		case 6: sprite.setTexture(Access::rl->BRICK_1_GR1_tex);	Brick::value = 600; break;
+		case 6: sprite.setTexture(Access::rl->BRICK_1_O1_tex);	Brick::value = 600; break;
 	}
 
 	sprite.setScale(1,1.17);
