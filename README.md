@@ -10,11 +10,11 @@ C++ <br>
 
 Requires MinGW(g++) and Make
 
-C <br>
+C (old version) <br>
 `gcc main.c -Ipath\to\CSFML\include -Lpath\to\CSFML\lib\gcc  -lcsfml-graphics -lcsfml-system -lcsfml-window -lcsfml-audio -o game -std=c99`
 
 # License
-GPLv3
+GPL-3.0 License 
 
 # Author
 *Simon Lixenfeld 2021*
