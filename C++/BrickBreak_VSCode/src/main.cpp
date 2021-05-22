@@ -5,7 +5,6 @@ sf::RenderWindow* Access::window = new sf::RenderWindow(sf::VideoMode(800, 600),
 
 int main()
 {
-
     Access::window->setFramerateLimit(70);
     Access::window->setVerticalSyncEnabled(true);
     Access::rl->load();
