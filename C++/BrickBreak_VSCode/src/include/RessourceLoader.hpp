@@ -1,6 +1,7 @@
 #ifndef _RLOADER_H_
 #define _RLOADER_H_
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 #include <iostream>
 
 #pragma once
@@ -21,13 +22,6 @@ class RessourceLoader
 
 	sf::Texture BUTTON_DN_tex;
 	sf::Texture BUTTON_UP_tex;
-
-	sf::Texture BUTTON_PLAY_DN_tex;
-	sf::Texture BUTTON_PLAY_UP_tex;
-	sf::Texture BUTTON_OPTIONS_DN_tex;
-	sf::Texture BUTTON_OPTIONS_UP_tex;
-	sf::Texture BUTTON_EXIT_DN_tex;
-	sf::Texture BUTTON_EXIT_UP_tex;
 	sf::Texture SELECT_tex;
 
 	sf::Texture BUTTON_START_tex;
@@ -41,6 +35,11 @@ class RessourceLoader
 	sf::Texture LIFE_tex;
 
 	sf::Font font;
+
+	sf::SoundBuffer BALL_SND;
+	sf::SoundBuffer BRICK_SND;
+	sf::SoundBuffer BUTTON_SND;
+	sf::SoundBuffer UI_SND;
 
 	RessourceLoader();
 

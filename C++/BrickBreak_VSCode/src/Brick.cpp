@@ -20,6 +20,7 @@ Brick::Brick(int value)
 
 	sprite.setScale(1,1.17);
 	sprite.setPosition(-500, -500);
+	sound.setBuffer(Access::rl->BRICK_SND);
 }
 
 void Brick::update()
@@ -45,4 +46,5 @@ void Brick::destroy()
 	falltime = 120;
 	vy = -10;
 	destroyed = true;
+	sound.play();
 }

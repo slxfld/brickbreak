@@ -20,6 +20,8 @@ Level::Level()
 	pausedText.setFont(Access::rl->font);
 	pausedText.setPosition(sf::Vector2f(300,300));
 	pausedText.setString("Game Paused");
+
+	UISound.setBuffer(Access::rl->UI_SND);
 }
 
 
@@ -33,6 +35,7 @@ void Level::input(sf::Event& event)
 			{
 				KEY_LEFT = true;
 				ball.speed--;
+				UISound.play();
 			}
 		}
 		else
@@ -46,6 +49,7 @@ void Level::input(sf::Event& event)
 			{
 				KEY_RIGHT = true;
 				ball.speed++;
+				UISound.play();
 			}
 		}
 		else
@@ -154,13 +158,13 @@ void Level::collisions()
 {
 	ball.checkPaddleCollision(paddle);
 
-	if (ball.isLost()) { loseLife(); }
+	if (ball.isLost())  loseLife(); 
 
 	ball.sprite.move(ball.vx, 0);
-	if (checkBallBrickCollision()) { ball.deflectX(); }
+	if (checkBallBrickCollision())  ball.deflectX(); 
 
 	ball.sprite.move(0, ball.vy);
-	if (checkBallBrickCollision()) { ball.deflectY(); }
+	if (checkBallBrickCollision())  ball.deflectY(); 
 }
 
 bool Level::checkBallBrickCollision()

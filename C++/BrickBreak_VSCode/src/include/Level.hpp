@@ -32,6 +32,8 @@ class Level : public State
 	sf::Text speedText;
 	sf::Text pausedText;
 
+	sf::Sound UISound;
+
 	sf::RectangleShape comboBar;
 
 	Life lives[3];

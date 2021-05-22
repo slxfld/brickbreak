@@ -8,6 +8,8 @@ Menu::Menu()
 	setupButtons();
 	selecter.setTexture(Access::rl->SELECT_tex);
 	selecter.setPosition(sf::Vector2f(310, 256 + (buttonSelectIndex * 50)));
+
+	buttonSound.setBuffer(Access::rl->BUTTON_SND);
 }
 
 void Menu::setupButtons()
@@ -57,13 +59,15 @@ void Menu::input(sf::Event& event)
 		if (startButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
 		{
 			enterGame = true;
+			buttonSound.play();
 		}
 		else if (optionsButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)) )
 		{
-			
+			buttonSound.play();			
 		}
 		else if (exitButton.getGlobalBounds().contains(sf::Vector2f(real_mouse_x,real_mouse_y)))
 		{
+			buttonSound.play();
 			Access::window->close();
 		}
 	}

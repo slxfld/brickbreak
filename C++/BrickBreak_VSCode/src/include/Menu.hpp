@@ -13,6 +13,8 @@ class Menu : public State
 	sf::Sprite exitButton;
 	sf::Sprite selecter;
 
+	sf::Sound buttonSound;
+
 	int buttonSelectIndex = 1;
 	bool enterGame = false;
 	Menu();

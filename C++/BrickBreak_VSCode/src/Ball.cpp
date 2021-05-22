@@ -7,6 +7,7 @@ Ball::Ball()
 	std::cout << "ball constructor called!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
 	speed = 5;
 	sprite.setTexture(Access::rl->BALL_tex);
+	sound.setBuffer(Access::rl->BALL_SND);
 	setDefault();
 }
 
@@ -22,6 +23,7 @@ void Ball::checkPaddleCollision(Paddle &paddle)
 	{
 		vx = (((sprite.getPosition().x + (sprite.getGlobalBounds().width / 2)) - (paddle.sprite.getPosition().x + paddle.sprite.getGlobalBounds().width / 2)) / 25) * (speed / 2);
 		vy = (vy > 0) ? -vy : vy;
+		sound.play();
 	}
 
 	// Ball outside up
@@ -61,12 +63,14 @@ void Ball::deflectX()
 {
 	vx = -vx;
 	resetIframes();
+	sound.play();
 }
 
 void Ball::deflectY()
 {
 	vy = -vy;
 	resetIframes();
+	sound.play();
 }
 
 void Ball::resetIframes()

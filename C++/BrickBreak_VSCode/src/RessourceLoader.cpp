@@ -18,18 +18,6 @@ void RessourceLoader::load()
 	BRICK_1_V1_tex.loadFromFile(path + "brick01v1.png");
 	BRICK_1_Y1_tex.loadFromFile(path + "brick01y1.png");
 
-	BUTTON_DN_tex.loadFromFile(path + "buttondn.png");
-	BUTTON_UP_tex.loadFromFile(path + "buttonup.png");
-
-	BUTTON_PLAY_DN_tex.loadFromFile(path + "buttonPLAYdn.png");
-	BUTTON_PLAY_UP_tex.loadFromFile(path + "buttonPLAYup.png");
-
-	BUTTON_OPTIONS_DN_tex.loadFromFile(path + "buttonOPTIONSdn.png");
-	BUTTON_OPTIONS_UP_tex.loadFromFile(path + "buttonOPTIONSup.png");
-
-	BUTTON_EXIT_DN_tex.loadFromFile(path + "buttonEXITdn.png");
-	BUTTON_EXIT_UP_tex.loadFromFile(path + "buttonEXITup.png");
-
 	BUTTON_OPTIONS_tex.loadFromFile(path + "buttonOptions.png");
 	BUTTON_EXIT_tex.loadFromFile(path + "buttonExit.png");
 	BUTTON_START_tex.loadFromFile(path + "buttonStart.png");
@@ -42,6 +30,11 @@ void RessourceLoader::load()
 	LIFE_tex.loadFromFile(path + "life.png");
 
 	font.loadFromFile("./data/EnterTheGrid2.ttf");
+
+	BALL_SND.loadFromFile("./data/ball_snd.wav");
+	UI_SND.loadFromFile("./data/ui_snd.wav");
+	BUTTON_SND.loadFromFile("./data/button_snd.wav");
+	BRICK_SND.loadFromFile("./data/brick_snd.wav");
 
 	std::cout << "<Ressource Loader> All Files Loaded!\n";
 }
