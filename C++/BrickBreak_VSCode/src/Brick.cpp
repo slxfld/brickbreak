@@ -21,6 +21,7 @@ Brick::Brick(int value)
 	sprite.setScale(1,1.17);
 	sprite.setPosition(-500, -500);
 	sound.setBuffer(Access::rl->BRICK_SND);
+	sound.setVolume(25);
 }
 
 void Brick::update()

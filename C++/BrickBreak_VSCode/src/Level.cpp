@@ -8,7 +8,7 @@ Level::Level()
 	createLives();
 
 	gameoverText.setFont(Access::rl->font);
-	gameoverText.setPosition(sf::Vector2f(270,320));
+	gameoverText.setPosition(sf::Vector2f(200,120));
 
 	scoreText.setFont(Access::rl->font);
 	scoreText.setScale(sf::Vector2f(0.7, 0.7));
@@ -93,14 +93,14 @@ void Level::input(sf::Event& event)
 		{
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 			{
-				if (leveldata.lives != 0)
+				if (leveldata.lives != 0 && gameover.show != true)
 				{
 					isRunning = true;
 				}
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 			{
-				if (leveldata.lives == 0 && gameover.alphaItemIndex == 5)
+				if (leveldata.lives == 0 && gameover.alphaItemIndex == 5 || leveldata.currentLevel == 8 && gameover.alphaItemIndex == 5 )
 					leveldata.gameover = true;
 			}
 		}
@@ -256,6 +256,7 @@ void Level::construct(int index)
 void Level::begin()
 {
 	leveldata.setDefault();
+	combo.combo = 0;
 	for (int i = 0; i < 3; i++) lives[i].alive = true;
 
 	gameoverText.setString("");
@@ -298,9 +299,10 @@ void Level::nextLevel()
 {
 	NextLevelSound.play();
 	leveldata.currentLevel++;
-	if (leveldata.currentLevel == 9)
+	if (leveldata.currentLevel == 8)
 	{
-		gameoverText.setString("All Levels complete!\n Your Score is: " + std::to_string(leveldata.score));
+		doGameOver();
+		gameoverText.setString("All Levels complete!");
 		isRunning = false;
 	}
 	else
