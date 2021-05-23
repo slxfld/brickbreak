@@ -1,10 +1,24 @@
-#ifndef _GAMEOVER_H_
-#define _GAMEOVER_H_
-#include "State.hpp"
+#ifndef _GameOver_H_
+#define _GameOver_H_
+#include "GameObject.hpp"
 #pragma once
-class Gameover : public State
+class GameOver : public GameObject
 {
 	public:
-    Gameover();
+    GameOver();
+
+    sf::Text GameOverText;
+    sf::Text highscoreText;
+    sf::Text scoreText;
+    sf::Text enterToContinueText;
+
+    int alphaCounter = 0;
+    int alphaItemIndex = 1;
+    bool show = false;
+
+    void draw();
+    void update();
+    void reset();
+
 };
 #endif

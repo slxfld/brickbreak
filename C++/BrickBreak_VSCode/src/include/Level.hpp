@@ -9,6 +9,7 @@
 #include "Combo.hpp"
 #include "FadingScore.hpp"
 #include "Access.hpp"
+#include "GameOver.hpp"
 #include <list>
 #pragma once
 class Level : public State
@@ -33,8 +34,12 @@ class Level : public State
 	sf::Text pausedText;
 
 	sf::Sound UISound;
+	sf::Sound LifeSound;
+	sf::Sound NextLevelSound;
 
 	sf::RectangleShape comboBar;
+
+	GameOver gameover;
 
 	Life lives[3];
 
@@ -51,6 +56,7 @@ class Level : public State
 
 	void construct(int index);
 	void createLives();
+	void doGameOver();
 
 	void begin();
 	void start();

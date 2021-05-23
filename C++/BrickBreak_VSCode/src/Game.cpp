@@ -18,6 +18,7 @@ void Game::update()
 	if (menuState.enterGame)
 	{
 		menuState.enterGame = false;
+		levelState.gameover.reset();
 		changeState(LEVEL);
 		levelState.selectingSpeed = true;
 		levelState.speedText.setPosition(sf::Vector2f(300, 400));

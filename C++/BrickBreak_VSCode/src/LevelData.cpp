@@ -3,6 +3,7 @@
 LevelData::LevelData()
 {
 	setDefault();
+	highscore = 0;
 }
 
 void LevelData::setDefault()

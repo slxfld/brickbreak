@@ -35,6 +35,10 @@ void RessourceLoader::load()
 	UI_SND.loadFromFile("./data/ui_snd.wav");
 	BUTTON_SND.loadFromFile("./data/button_snd.wav");
 	BRICK_SND.loadFromFile("./data/brick_snd.wav");
+	LEVEL_SND.loadFromFile("./data/next_level_snd.wav");
+	GAMEOVER_SND.loadFromFile("./data/gameover_snd.wav");
+	POWER_SND.loadFromFile("./data/power_snd.wav");
+	LIFE_SND.loadFromFile("./data/life_snd.wav");
 
 	std::cout << "<Ressource Loader> All Files Loaded!\n";
 }

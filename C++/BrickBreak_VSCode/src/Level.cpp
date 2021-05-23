@@ -22,6 +22,8 @@ Level::Level()
 	pausedText.setString("Game Paused");
 
 	UISound.setBuffer(Access::rl->UI_SND);
+	LifeSound.setBuffer(Access::rl->LIFE_SND);
+	NextLevelSound.setBuffer(Access::rl->LEVEL_SND);
 }
 
 
@@ -91,7 +93,15 @@ void Level::input(sf::Event& event)
 		{
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 			{
-				isRunning = true;
+				if (leveldata.lives != 0)
+				{
+					isRunning = true;
+				}
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+			{
+				if (leveldata.lives == 0 && gameover.alphaItemIndex == 5)
+					leveldata.gameover = true;
 			}
 		}
 
@@ -122,6 +132,7 @@ void Level::draw()
 	Access::window->draw(scoreText);
 	Access::window->draw(gameoverText);
 	Access::window->draw(speedText);
+	gameover.draw();
 }
 
 void Level::update()
@@ -147,6 +158,7 @@ void Level::update()
 	}
 	else
 	{
+		gameover.update();
 		if (ball.onPaddle)
 		{
 			ball.sprite.setPosition(paddle.sprite.getPosition() + sf::Vector2f(paddle.sprite.getGlobalBounds().width/2, -20));
@@ -198,6 +210,14 @@ bool Level::checkBallBrickCollision()
 	}
 	return false;
 }
+
+void Level::addScore(int value)
+{
+	leveldata.score += (value * combo.combo);
+	if (leveldata.score > leveldata.highscore)
+		leveldata.highscore = leveldata.score;
+}
+
 bool Level::checkWin()
 {
 	return (bricksLeft == 0);
@@ -256,16 +276,27 @@ void Level::restartLevel()
 
 void Level::loseLife()
 {
+	LifeSound.play();
 	leveldata.lives--;
 	lives[leveldata.lives].alive = false;
-	if (leveldata.lives == 0)
-		leveldata.gameover = true;
+	if (leveldata.lives == 0 && !gameover.show)
+		doGameOver();
 	else
 		restartLevel();
 }
 
+void Level::doGameOver()
+{
+		isRunning = false;
+		gameover.scoreText.setString("Score:\t\t" + std::to_string(leveldata.score));
+		gameover.highscoreText.setString("Highscore:\t\t" + std::to_string(leveldata.highscore));
+		gameover.show = true;
+		gameover.sound.play();
+}
+
 void Level::nextLevel()
 {
+	NextLevelSound.play();
 	leveldata.currentLevel++;
 	if (leveldata.currentLevel == 9)
 	{
@@ -284,11 +315,6 @@ void Level::nextLevel()
 
 		restartLevel();
 	}
-}
-
-void Level::addScore(int value)
-{
-	leveldata.score += (value * combo.combo);
 }
 
 void Level::createLives()

@@ -7,6 +7,7 @@ class LevelData
     public:
 	int lives;
 	int score;
+    int highscore;
 	int currentLevel;
     bool gameover;
 

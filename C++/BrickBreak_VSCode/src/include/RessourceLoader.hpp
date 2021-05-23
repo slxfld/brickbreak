@@ -40,6 +40,10 @@ class RessourceLoader
 	sf::SoundBuffer BRICK_SND;
 	sf::SoundBuffer BUTTON_SND;
 	sf::SoundBuffer UI_SND;
+	sf::SoundBuffer LIFE_SND;
+	sf::SoundBuffer LEVEL_SND;
+	sf::SoundBuffer GAMEOVER_SND;
+	sf::SoundBuffer POWER_SND;
 
 	RessourceLoader();
 
